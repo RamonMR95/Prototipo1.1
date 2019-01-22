@@ -1,23 +1,37 @@
+/** Proyecto: Juego de la vida.
+ *  Implementa el concepto de Fecha del modelo  
+ *  @since: prototipo1.1
+ *  @source: Fecha.java 
+ *  @version: 1.1 - 2019/01/22 
+ *  @author: Ramon Moñino
+ */
 package util;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Fecha {
+	/* Objecto de la clase Calendar que utilizaremos para registrar una marca de tiempo */
 	private Calendar tiempo;
 
+	/* Constructores de la clase */
 	public Fecha() {
 		this.tiempo = new GregorianCalendar();
 	}
 
 	public Fecha(int year, int month, int day) {
-		this.tiempo = new GregorianCalendar(year, month, day);
+		this.tiempo = new GregorianCalendar(year, month - 1, day);
 	}
 
 	public Fecha(int year, int month, int day, int hour, int minute, int second) {
-		this.tiempo = new GregorianCalendar(year, month, day, hour, minute, second);
+		this.tiempo = new GregorianCalendar(year, month - 1, day, hour, minute, second);
 	}
 
+	public Fecha(Fecha fecha) {
+		this.tiempo = fecha.tiempo;
+	}
+
+	/* Metodos de establecimiento / obtencion de datos */
 	public int getAño() {
 		return tiempo.get(Calendar.YEAR);
 	}
@@ -66,6 +80,7 @@ public class Fecha {
 		this.tiempo.set(Calendar.HOUR_OF_DAY, hour);
 	}
 
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -73,41 +88,22 @@ public class Fecha {
 		result = prime * result + ((tiempo == null) ? 0 : tiempo.hashCode());
 		return result;
 	}
-
+/**
+ * Dos objetos son iguales si.
+ * Son de la misma clase.
+ * Tienen los mismos valores en los atributos o son el mismo objeto.
+ */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-
-		Fecha other = (Fecha) obj;
-		if (getAño() != other.getAño()) {
-			return false;
+		if (obj != null && getClass() == obj.getClass()) {
+			if (this == obj) {
+				return true;
+			}
+			if (this.tiempo.getTimeInMillis() == ((Fecha) obj).tiempo.getTimeInMillis()) {
+				return true;
+			}
 		}
-		if (getMes() != other.getMes()) {
-			return false;
-		}
-		if (getDia() != other.getDia()) {
-			return false;
-		}
-		if (getHora() != other.getHora()) {
-			return false;
-		}
-		if (getMinuto() != other.getMinuto()) {
-			return false;
-		}
-		if (getSeg() != other.getSeg()) {
-			return false;
-		}
-		if (tiempo == null) {
-			if (other.tiempo != null)
-				return false;
-		} else if (!tiempo.equals(other.tiempo))
-			return false;
-		return true;
+		return false;
 	}
 
 	@Override
@@ -120,8 +116,11 @@ public class Fecha {
 		sb.append("/");
 		sb.append(String.valueOf(getDia()));
 		sb.append(")");
-
 		return sb.toString();
 	}
 
+	@Override
+	protected Fecha clone() {
+		return new Fecha(this);
+	}
 }

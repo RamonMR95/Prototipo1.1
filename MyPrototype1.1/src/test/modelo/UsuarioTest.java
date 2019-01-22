@@ -24,6 +24,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import modelo.Usuario;
+import util.Fecha;
 
 public class UsuarioTest {
 	private static Usuario usuario1; 
@@ -40,8 +41,8 @@ public class UsuarioTest {
 				"Luis", "Roca Mora",
 				new DireccionPostal("Roncal", "10", "30130","Murcia"), 
 				new Correo("luis@gmail.com"), 
-				new GregorianCalendar(2000, 03, 21),
-				new GregorianCalendar(2018,10,17), 
+				new Fecha(2000, 03, 21),
+				new Fecha(2018,10,17), 
 				new ClaveAcceso("Miau#12"), 
 				Usuario.ROLES[1]);
 	}
@@ -93,12 +94,12 @@ public class UsuarioTest {
 		assertEquals(usuario2.getApellidos(), "Apellido Apellido");
 		assertEquals(usuario2.getDireccionPostal(), "Domicilio");
 		assertEquals(usuario2.getCorreo(), "correo@correo.es");
-		assertEquals(usuario2.getFechaNacimiento().get(Calendar.YEAR), new GregorianCalendar().get(Calendar.YEAR));
-		assertEquals(usuario2.getFechaNacimiento().get(Calendar.MONTH), new GregorianCalendar().get(Calendar.MONTH));
-		assertEquals(usuario2.getFechaNacimiento().get(Calendar.DATE), new GregorianCalendar().get(Calendar.DATE));
-		assertEquals(usuario2.getFechaAlta().get(Calendar.YEAR), new GregorianCalendar().get(Calendar.YEAR));
-		assertEquals(usuario2.getFechaAlta().get(Calendar.MONTH), new GregorianCalendar().get(Calendar.MONTH));
-		assertEquals(usuario2.getFechaAlta().get(Calendar.DATE), new GregorianCalendar().get(Calendar.DATE));
+		assertEquals(usuario2.getFechaNacimiento().getAño(), new GregorianCalendar().get(Calendar.YEAR));
+		assertEquals(usuario2.getFechaNacimiento().getMes(), new GregorianCalendar().get(Calendar.MONTH));
+		assertEquals(usuario2.getFechaNacimiento().getDia(), new GregorianCalendar().get(Calendar.DATE));
+		assertEquals(usuario2.getFechaAlta().getAño(), new GregorianCalendar().get(Calendar.YEAR));
+		assertEquals(usuario2.getFechaAlta().getMes(), new GregorianCalendar().get(Calendar.MONTH));
+		assertEquals(usuario2.getFechaAlta().getDia(), new GregorianCalendar().get(Calendar.DATE));
 		assertEquals(usuario2.getClaveAcceso(), "Miau#0");
 		assertEquals(usuario2.getRol(), Usuario.ROLES[1]);
 	}
@@ -143,14 +144,14 @@ public class UsuarioTest {
 	}
 	@Test
 	public void testSetFechaNacimiento() {
-		usuario2.setFechaNacimiento(new GregorianCalendar(2000, 3, 21));
-		assertEquals(usuario2.getFechaNacimiento(), new GregorianCalendar(2000, 3, 21));
+		usuario2.setFechaNacimiento(new Fecha(2000, 3, 21));
+		assertEquals(usuario2.getFechaNacimiento(), new Fecha(2000, 3, 21));
 	}
 	
 	@Test
 	public void testSetFechaAlta() {
-		usuario2.setFechaAlta(new GregorianCalendar(2017,9,17));
-		assertEquals(usuario2.getFechaAlta(), new GregorianCalendar(2017,9,17));
+		usuario2.setFechaAlta(new Fecha(2017,9,17));
+		assertEquals(usuario2.getFechaAlta(), new Fecha(2017,9,17));
 	}
 
 	@Test
@@ -192,8 +193,8 @@ public class UsuarioTest {
 						" ",
 						new DireccionPostal(" ", " ", " " ," "),
 						new Correo(" "), 
-						new GregorianCalendar(2000, 03, 21),
-						new GregorianCalendar(2018,10,17), 
+						new Fecha(2000, 03, 21),
+						new Fecha(2018,10,17), 
 						new ClaveAcceso(" "), 
 						" ");
 
@@ -273,7 +274,7 @@ public class UsuarioTest {
 	@Test
 	public void testSetDomicilioBlanco() {
 			usuario2.setDireccionPostal(new DireccionPostal(" ", " ", " ", " "));	
-			assertEquals(usuario2.getDireccionPostal(), "Domicilio");
+			assertEquals(usuario2.getDireccionPostal(), "Roncal, 10, 30130, Murcia");
 	}
 	
 	@Test
@@ -306,8 +307,8 @@ public class UsuarioTest {
 	
 	@Test
 	public void testSetFechaNacimientoFuturo() {	
-			usuario1.setFechaNacimiento(new GregorianCalendar(3020, 9, 10));
-			assertEquals(usuario1.getFechaNacimiento(), new GregorianCalendar(2000, 3, 21));
+			usuario1.setFechaNacimiento(new Fecha(3020, 9, 10));
+			assertEquals(usuario1.getFechaNacimiento(), new Fecha(2000, 3, 21));
 	}
 	
 	@Test
@@ -323,8 +324,8 @@ public class UsuarioTest {
 
 	@Test
 	public void testSetFechaAltaFuturo() {	
-			usuario1.setFechaAlta(new GregorianCalendar(3020, 9, 10));
-			assertEquals(usuario1.getFechaAlta(), new GregorianCalendar(2018, 10, 17));
+			usuario1.setFechaAlta(new Fecha(3020, 9, 10));
+			assertEquals(usuario1.getFechaAlta(), new Fecha(2018, 10, 17));
 	}
 	
 	@Test

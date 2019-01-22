@@ -20,6 +20,7 @@ import java.util.Scanner;
 import modelo.ClaveAcceso;
 import modelo.SesionUsuario;
 import modelo.Simulacion;
+import util.Fecha;
 import modelo.*;
 
 public class JVPrincipal {
@@ -63,7 +64,7 @@ public class JVPrincipal {
 
 		do {
 			// Pide usuario y contraseña.
-			System.out.print("Introduce el nif de usuario: ");
+			System.out.print("Introduce el nif de usuario: \n");
 			Nif nif = new Nif(teclado.nextLine());
 			System.out.print("Introduce clave acceso: ");
 			ClaveAcceso clave = new ClaveAcceso(teclado.nextLine());
@@ -77,6 +78,7 @@ public class JVPrincipal {
 			aux.setClaveAcceso(new ClaveAcceso(clave));
 			clave = aux.getClaveAcceso();
 			if (usrEnSesion != null && usrEnSesion.getClaveAcceso().equals(clave)) {
+				teclado.close();
 				return true;
 			} else {
 				intentosPermitidos--;
@@ -84,7 +86,8 @@ public class JVPrincipal {
 				System.out.println("Quedan " + intentosPermitidos + " intentos... ");
 			}
 		} while (intentosPermitidos > 0);
-
+		
+		teclado.close();
 		return false;
 	}
 
@@ -133,8 +136,8 @@ public class JVPrincipal {
 		for (int i = 0; i < MAX_USUARIOS; i++) {
 			datosUsuarios[i] = new Usuario(new Nif("12345678" + i + "K"), "Pepe", "López Pérez",
 					new DireccionPostal("C/ Luna", "2" + i, "3013" + i, "Murcia"),
-					new Correo("pepe" + i + "@gmail.com"), new GregorianCalendar(1999, 11, 12),
-					new GregorianCalendar(2018, 01, 03), new ClaveAcceso("Miau#" + i), Usuario.ROLES[0]);
+					new Correo("pepe" + i + "@gmail.com"), new Fecha(1999, 11, 12),
+					new Fecha(2018, 01, 03), new ClaveAcceso("Miau#" + i), Usuario.ROLES[0]);
 		}
 	}
 

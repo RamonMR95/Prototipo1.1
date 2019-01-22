@@ -1,3 +1,10 @@
+/** Proyecto: Juego de la vida.
+ *  Implementa el concepto de ClaveAcceso del modelo  
+ *  @since: prototipo1.1
+ *  @source: ClaveAcceso.java 
+ *  @version: 1.1 - 2019/01/22 
+ *  @author: Ramon Moñino
+ */
 package modelo;
 
 public class ClaveAcceso {

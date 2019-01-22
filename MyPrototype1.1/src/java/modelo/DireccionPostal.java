@@ -1,3 +1,10 @@
+/** Proyecto: Juego de la vida.
+ *  Implementa el concepto de DireccionPostal del modelo  
+ *  @since: prototipo1.1
+ *  @source: DireccionPostal.java 
+ *  @version: 1.1 - 2019/01/22 
+ *  @author: Ramon Moñino
+ */
 package modelo;
 
 public class DireccionPostal {

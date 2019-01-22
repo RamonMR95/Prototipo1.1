@@ -1,3 +1,10 @@
+/** Proyecto: Juego de la vida.
+ *  Implementa el concepto de Nif del modelo  
+ *  @since: prototipo1.1
+ *  @source: Nif.java 
+ *  @version: 1.1 - 2019/01/22 
+ *  @author: Ramon Moñino
+ */
 package modelo;
 
 public class Nif {

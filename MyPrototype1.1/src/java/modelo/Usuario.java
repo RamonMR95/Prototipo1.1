@@ -12,8 +12,8 @@ package modelo;
  *  @author: Ramon Moñino
  */
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import util.Fecha;
+
 
 public class Usuario {
 
@@ -22,8 +22,8 @@ public class Usuario {
 	private String apellidos;
 	private DireccionPostal direccionpostal;
 	private Correo correo;
-	private Calendar fechaNacimiento;
-	private Calendar fechaAlta;
+	private Fecha fechaNacimiento;
+	private Fecha fechaAlta;
 	private ClaveAcceso claveAcceso;
 	private String rol;
 	public final static String[] ROLES = { "INVITADO", "NORMAL", "ADMINSTRADOR" };
@@ -42,7 +42,7 @@ public class Usuario {
 	 * @param rol
 	 */
 	public Usuario(Nif nif, String nombre, String apellidos, DireccionPostal direccionpostal, Correo correo,
-			Calendar fechaNacimiento, Calendar fechaAlta, ClaveAcceso claveAcceso, String rol) {
+			Fecha fechaNacimiento, Fecha fechaAlta, ClaveAcceso claveAcceso, String rol) {
 		setNif(nif);
 		setNombre(nombre);
 		setApellidos(apellidos);
@@ -58,13 +58,12 @@ public class Usuario {
 	 * Constructor por defecto. Reenvía al constructor convencional.
 	 */
 	public Usuario() {
-		this(new Nif(), "Nombre", "Apellido Apellido", new DireccionPostal(), new Correo(), new GregorianCalendar(),
-				new GregorianCalendar(), new ClaveAcceso(), ROLES[1]);
+		this(new Nif(), "Nombre", "Apellido Apellido", new DireccionPostal(), new Correo(), new Fecha(),
+				new Fecha(), new ClaveAcceso(), ROLES[1]);
 	}
 
 	/**
 	 * Constructor copia.
-	 * 
 	 * @param usr
 	 */
 	public Usuario(Usuario usr) {
@@ -73,10 +72,10 @@ public class Usuario {
 		this.apellidos = new String(usr.apellidos);
 		this.direccionpostal = new DireccionPostal(usr.direccionpostal);
 		this.correo = new Correo(usr.correo);
-		this.fechaNacimiento = new GregorianCalendar(usr.fechaNacimiento.get(Calendar.YEAR),
-				usr.fechaNacimiento.get(Calendar.MONTH), usr.fechaNacimiento.get(Calendar.DATE));
-		this.fechaAlta = new GregorianCalendar(usr.fechaAlta.get(Calendar.YEAR), usr.fechaAlta.get(Calendar.MONTH),
-				usr.fechaAlta.get(Calendar.DATE));
+		this.fechaNacimiento = new Fecha(usr.fechaNacimiento.getAño(),
+				usr.fechaNacimiento.getMes(), usr.fechaNacimiento.getDia());
+		this.fechaAlta = new Fecha(usr.fechaAlta.getAño(), usr.fechaAlta.getMes(),
+				usr.fechaAlta.getDia());
 		this.claveAcceso = new ClaveAcceso(usr.claveAcceso);
 		this.rol = new String(usr.rol);
 	}
@@ -107,7 +106,6 @@ public class Usuario {
 
 	/**
 	 * Comprueba validez del nombre.
-	 * 
 	 * @param nombre.
 	 * @return true si cumple.
 	 */
@@ -159,55 +157,24 @@ public class Usuario {
 		this.correo = correo;
 	}
 
-	public Calendar getFechaNacimiento() {
+	public Fecha getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Calendar fechaNacimiento) {
+	public void setFechaNacimiento(Fecha fechaNacimiento) {
 		assert fechaNacimiento != null;
-		if (fechaNacimientoValida(fechaNacimiento)) {
-			this.fechaNacimiento = fechaNacimiento;
-		}
-		// Todavía no se gestionan errores de usuario.
-		if (this.fechaNacimiento == null) { // Tiempo de construcción.
-			this.fechaNacimiento = new Usuario().fechaNacimiento; // Defecto.
-		}
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	/**
-	 * Comprueba validez de una fecha de nacimiento.
-	 * 
-	 * @param fechaNacimiento.
-	 * @return true si cumple.
-	 */
-	private boolean fechaNacimientoValida(Calendar fechaNacimiento) {
-		return fechaNacimiento.before(new GregorianCalendar());
-	}
-
-	public Calendar getFechaAlta() {
+	public Fecha getFechaAlta() {
 		return fechaAlta;
 	}
 
-	public void setFechaAlta(Calendar fechaAlta) {
+	public void setFechaAlta(Fecha fechaAlta) {
 		assert fechaAlta != null;
-		if (fechaAltaValida(fechaAlta)) {
-			this.fechaAlta = fechaAlta;
-		}
-		// Todavía no se gestionan errores de usuario.
-		if (this.fechaAlta == null) { // Tiempo de construcción.
-			this.fechaAlta = new Usuario().fechaAlta; // Defecto.
-		}
+		this.fechaAlta = fechaAlta;
 	}
 
-	/**
-	 * Comprueba validez de una fecha de alta.
-	 * 
-	 * @param fechaAlta.
-	 * @return true si cumple.
-	 */
-	private boolean fechaAltaValida(Calendar fechaAlta) {
-		return !fechaAlta.after(new GregorianCalendar()); // Que no sea en blanco.
-	}
 
 	public ClaveAcceso getClaveAcceso() {
 		return claveAcceso;
@@ -252,14 +219,26 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return String.format(
-				"%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n"
-						+ "%-16s %s\n" + "%-16s %s\n",
-				"nif:", nif, "nombre:", this.nombre, "apellidos:", this.apellidos, "domicilio:", this.direccionpostal,
-				"correo:", this.correo, "fechaNacimiento:",
-				this.fechaNacimiento.get(Calendar.YEAR) + "." + this.fechaNacimiento.get(Calendar.MONTH) + "."
-						+ this.fechaNacimiento.get(Calendar.DATE),
-				"fechaAlta:", this.fechaAlta.get(Calendar.YEAR) + "." + this.fechaAlta.get(Calendar.MONTH) + "."
-						+ this.fechaAlta.get(Calendar.DATE),
+						"%-16s %s\n" +
+						"%-16s %s\n" + 
+						"%-16s %s\n" + 
+						"%-16s %s\n" + 
+						"%-16s %s\n" + 
+						"%-16s %s\n" + 
+						"%-16s %s\n" + 
+						"%-16s %s\n" + 
+						"%-16s %s\n",
+				"nif:", nif, 
+				"nombre:", this.nombre, 
+				"apellidos:", this.apellidos, 
+				"domicilio:", this.direccionpostal,
+				"correo:", this.correo, 
+				"fechaNacimiento:", this.fechaNacimiento.getAño() 
+						+ "." + this.fechaNacimiento.getMes() + "."
+						+ this.fechaNacimiento.getDia(),
+				"fechaAlta:", this.fechaAlta.getAño() 
+						+ "." + this.fechaAlta.getMes() + 
+						"." + this.fechaAlta.getDia(),
 				"claveAcceso:", this.claveAcceso, "rol:", this.rol);
 	}
 

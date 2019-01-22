@@ -25,6 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import modelo.SesionUsuario;
 import modelo.Usuario;
+import util.Fecha;
 
 public class SesionUsuarioTest {
 
@@ -43,8 +44,8 @@ public class SesionUsuarioTest {
 				"Luis", "Roca Mora",
 				new DireccionPostal("Roncal", "10", "30130", "Murcia"), 
 				new Correo("luis@gmail.com"), 
-				new GregorianCalendar(2000, 03, 21),
-				new GregorianCalendar(2018,10,17), 
+				new Fecha(2000, 03, 21),
+				new Fecha(2018,10,17), 
 				new ClaveAcceso("Miau#12"), 
 				Usuario.ROLES[1]);
 		fecha = new GregorianCalendar(2018, 10, 20, 10, 35, 2);
