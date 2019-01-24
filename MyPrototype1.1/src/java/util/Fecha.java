@@ -32,23 +32,10 @@ public class Fecha {
 	}
 
 	public Fecha(Fecha fecha) {
-		this.tiempo = fecha.tiempo;
+		this.tiempo = (Calendar) fecha.tiempo.clone();
 	}
 
 	/* Metodos de establecimiento / obtencion de datos */
-	public void setFecha(Calendar tiempo) {
-		assert tiempo != null;
-		if (fechaValida(tiempo)) {
-			this.tiempo = tiempo;
-		}
-		if (this.tiempo == null) {
-			this.tiempo = new Fecha().tiempo;
-		}
-	}
-
-	private boolean fechaValida(Calendar tiempo) {
-		return tiempo.before(new GregorianCalendar());
-	}
 
 	public Calendar getFecha() {
 		return tiempo;
@@ -119,6 +106,31 @@ public class Fecha {
 		return this;
 	}
 
+	public Fecha addMinutos(int minutos) {
+		this.tiempo.add(Calendar.MINUTE, minutos);
+		return this;
+	}
+
+	public Fecha addHoras(int horas) {
+		this.tiempo.add(Calendar.HOUR_OF_DAY, horas);
+		return this;
+	}
+
+	public Fecha addDias(int dias) {
+		this.tiempo.add(Calendar.DAY_OF_MONTH, dias);
+		return this;
+	}
+
+	public Fecha addMeses(int meses) {
+		this.tiempo.add(Calendar.MONTH, meses);
+		return this;
+	}
+
+	public Fecha addAños(int años) {
+		this.tiempo.add(Calendar.YEAR, años);
+		return this;
+	}
+
 	public GregorianCalendar toGregorianCalendar() {
 		return (GregorianCalendar) tiempo;
 	}
@@ -137,6 +149,10 @@ public class Fecha {
 
 	public int compareTo(Fecha fecha) {
 		return tiempo.compareTo(fecha.tiempo);
+	}
+	
+	public boolean before(Fecha fecha) {
+		return this.tiempo.before(fecha);
 	}
 
 	@Override

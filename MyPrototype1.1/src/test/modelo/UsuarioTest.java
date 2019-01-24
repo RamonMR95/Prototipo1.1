@@ -40,7 +40,7 @@ public class UsuarioTest {
 				new DireccionPostal("Roncal", "10", "30130","Murcia"), 
 				new Correo("luis@gmail.com"), 
 				new Fecha(2000, 03, 21),
-				new Fecha(2018,10,17), 
+				new Fecha(2018, 10, 17), 
 				new ClaveAcceso("Miau#12"), 
 				Usuario.ROLES[1]);
 	}
@@ -166,6 +166,7 @@ public class UsuarioTest {
 
 	@Test
 	public void testToString() {
+		System.out.println(usuario1.toString());
 		assertEquals(usuario1.toString(), 
 				"nif:             00000001R\n" +
 				"nombre:          Luis\n" +
@@ -323,8 +324,7 @@ public class UsuarioTest {
 	@Test
 	public void testSetFechaAltaFuturo() {	
 			usuario1.setFechaAlta(new Fecha(3020, 9, 10));
-//			System.out.println(usuario1.getFechaAlta());
-			assertEquals(usuario1.getFechaAlta().getFecha(), new Fecha(2018, 10, 17));
+			assertEquals(usuario1.getFechaAlta(), new Fecha(2018, 10, 17));
 	}
 	
 	@Test

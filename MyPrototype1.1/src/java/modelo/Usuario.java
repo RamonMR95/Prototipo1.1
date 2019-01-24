@@ -14,7 +14,6 @@ package modelo;
 
 import util.Fecha;
 
-
 public class Usuario {
 
 	private Nif nif;
@@ -58,12 +57,13 @@ public class Usuario {
 	 * Constructor por defecto. Reenvía al constructor convencional.
 	 */
 	public Usuario() {
-		this(new Nif(), "Nombre", "Apellido Apellido", new DireccionPostal(), new Correo(), new Fecha(),
-				new Fecha(), new ClaveAcceso(), ROLES[1]);
+		this(new Nif(), "Nombre", "Apellido Apellido", new DireccionPostal(), new Correo(), new Fecha(), new Fecha(),
+				new ClaveAcceso(), ROLES[1]);
 	}
 
 	/**
 	 * Constructor copia.
+	 * 
 	 * @param usr
 	 */
 	public Usuario(Usuario usr) {
@@ -72,10 +72,9 @@ public class Usuario {
 		this.apellidos = new String(usr.apellidos);
 		this.direccionpostal = new DireccionPostal(usr.direccionpostal);
 		this.correo = new Correo(usr.correo);
-		this.fechaNacimiento = new Fecha(usr.fechaNacimiento.getAño(),
-				usr.fechaNacimiento.getMes(), usr.fechaNacimiento.getDia());
-		this.fechaAlta = new Fecha(usr.fechaAlta.getAño(), usr.fechaAlta.getMes(),
-				usr.fechaAlta.getDia());
+		this.fechaNacimiento = new Fecha(usr.fechaNacimiento.getAño(), usr.fechaNacimiento.getMes(),
+				usr.fechaNacimiento.getDia());
+		this.fechaAlta = new Fecha(usr.fechaAlta.getAño(), usr.fechaAlta.getMes(), usr.fechaAlta.getDia());
 		this.claveAcceso = new ClaveAcceso(usr.claveAcceso);
 		this.rol = new String(usr.rol);
 	}
@@ -106,6 +105,7 @@ public class Usuario {
 
 	/**
 	 * Comprueba validez del nombre.
+	 * 
 	 * @param nombre.
 	 * @return true si cumple.
 	 */
@@ -159,11 +159,21 @@ public class Usuario {
 
 	public Fecha getFechaNacimiento() {
 		return fechaNacimiento;
+
 	}
 
 	public void setFechaNacimiento(Fecha fechaNacimiento) {
 		assert fechaNacimiento != null;
-		this.fechaNacimiento = fechaNacimiento;
+		if (fechaNacimientoValida(fechaNacimiento)) {
+			this.fechaNacimiento = fechaNacimiento;
+		}
+		if (this.fechaNacimiento == null) {
+			this.fechaNacimiento = new Fecha(); // Tiempo de construccion
+		}
+	}
+
+	private boolean fechaNacimientoValida(Fecha fechaNacimiento) {
+		return fechaNacimiento.before(new Fecha());
 	}
 
 	public Fecha getFechaAlta() {
@@ -172,7 +182,16 @@ public class Usuario {
 
 	public void setFechaAlta(Fecha fechaAlta) {
 		assert fechaAlta != null;
-		this.fechaAlta = fechaAlta;
+		if (fechaAltaValida(fechaAlta)) {
+			this.fechaAlta = fechaAlta;
+		}
+		if (this.fechaAlta == null) {
+			this.fechaAlta = new Fecha();
+		}
+	}
+
+	private boolean fechaAltaValida(Fecha fechaalta) {
+		return fechaalta.before(new Fecha());
 	}
 
 
@@ -219,26 +238,13 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return String.format(
-						"%-16s %s\n" +
-						"%-16s %s\n" + 
-						"%-16s %s\n" + 
-						"%-16s %s\n" + 
-						"%-16s %s\n" + 
-						"%-16s %s\n" + 
-						"%-16s %s\n" + 
-						"%-16s %s\n" + 
-						"%-16s %s\n",
-				"nif:", nif, 
-				"nombre:", this.nombre, 
-				"apellidos:", this.apellidos, 
-				"domicilio:", this.direccionpostal,
-				"correo:", this.correo, 
-				"fechaNacimiento:", this.fechaNacimiento.getAño() 
-						+ "." + this.fechaNacimiento.getMes() + "."
+				"%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n"
+						+ "%-16s %s\n" + "%-16s %s\n",
+				"nif:", nif, "nombre:", this.nombre, "apellidos:", this.apellidos, "domicilio:", this.direccionpostal,
+				"correo:", this.correo, "fechaNacimiento:",
+				this.fechaNacimiento.getAño() + "." + this.fechaNacimiento.getMes() + "."
 						+ this.fechaNacimiento.getDia(),
-				"fechaAlta:", this.fechaAlta.getAño() 
-						+ "." + this.fechaAlta.getMes() + 
-						"." + this.fechaAlta.getDia(),
+				"fechaAlta:", this.fechaAlta.getAño() + "." + this.fechaAlta.getMes() + "." + this.fechaAlta.getDia(),
 				"claveAcceso:", this.claveAcceso, "rol:", this.rol);
 	}
 

@@ -55,7 +55,6 @@ public class JVPrincipal {
 
 	/**
 	 * Controla el acceso de usuario.
-	 * 
 	 * @return true si la sesión se inicia correctamente.
 	 */
 	static boolean inicioSesionCorrecto() {
@@ -93,7 +92,6 @@ public class JVPrincipal {
 
 	/**
 	 * Busca usuario dado su nif.
-	 * 
 	 * @param idUsr - el nif del Usuario a buscar.
 	 * @return - el Usuario encontrado o null si no existe.
 	 */
