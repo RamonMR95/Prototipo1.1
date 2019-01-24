@@ -150,7 +150,7 @@ public class DireccionPostal {
 
 	@Override
 	public String toString() {
-		return calle + " " + numero + " " + CP + " " + poblacion;
+		return calle + ", " + numero + ", " + CP + ", " + poblacion;
 	}
 
 	@Override

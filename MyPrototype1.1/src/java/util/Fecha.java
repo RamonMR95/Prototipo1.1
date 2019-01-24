@@ -8,10 +8,14 @@
 package util;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Fecha {
-	/* Objecto de la clase Calendar que utilizaremos para registrar una marca de tiempo */
+	/*
+	 * Objecto de la clase Calendar que utilizaremos para registrar una marca de
+	 * tiempo
+	 */
 	private Calendar tiempo;
 
 	/* Constructores de la clase */
@@ -32,6 +36,24 @@ public class Fecha {
 	}
 
 	/* Metodos de establecimiento / obtencion de datos */
+	public void setFecha(Calendar tiempo) {
+		assert tiempo != null;
+		if (fechaValida(tiempo)) {
+			this.tiempo = tiempo;
+		}
+		if (this.tiempo == null) {
+			this.tiempo = new Fecha().tiempo;
+		}
+	}
+
+	private boolean fechaValida(Calendar tiempo) {
+		return tiempo.before(new GregorianCalendar());
+	}
+
+	public Calendar getFecha() {
+		return tiempo;
+	}
+
 	public int getAño() {
 		return tiempo.get(Calendar.YEAR);
 	}
@@ -80,6 +102,42 @@ public class Fecha {
 		this.tiempo.set(Calendar.HOUR_OF_DAY, hour);
 	}
 
+	public long difSegundos(Fecha fecha) {
+		return ((this.tiempo.getTimeInMillis() - fecha.tiempo.getTimeInMillis()) / 1000);
+	}
+
+	public long difHoras(Fecha fecha) {
+		return ((this.tiempo.getTimeInMillis() - fecha.tiempo.getTimeInMillis()) / (60 * 60 * 1000));
+	}
+
+	public long difDias(Fecha fecha) {
+		return ((this.tiempo.getTimeInMillis() - fecha.tiempo.getTimeInMillis()) / (24 * 60 * 60 * 1000));
+	}
+
+	public Fecha addSegundos(int segundos) {
+		this.tiempo.add(Calendar.SECOND, segundos);
+		return this;
+	}
+
+	public GregorianCalendar toGregorianCalendar() {
+		return (GregorianCalendar) tiempo;
+	}
+
+	public Date toDate() {
+		return tiempo.getTime();
+	}
+
+	public long getMarcaTiempoMilisegundos() {
+		return tiempo.getTimeInMillis();
+	}
+
+	public String toStringMarcaTiempo() {
+		return String.format("%4%02%02%02%02%02", getAño(), getMes(), getDia(), getHora(), getMinuto(), getSeg());
+	}
+
+	public int compareTo(Fecha fecha) {
+		return tiempo.compareTo(fecha.tiempo);
+	}
 
 	@Override
 	public int hashCode() {
@@ -88,11 +146,11 @@ public class Fecha {
 		result = prime * result + ((tiempo == null) ? 0 : tiempo.hashCode());
 		return result;
 	}
-/**
- * Dos objetos son iguales si.
- * Son de la misma clase.
- * Tienen los mismos valores en los atributos o son el mismo objeto.
- */
+
+	/**
+	 * Dos objetos son iguales si. Son de la misma clase. Tienen los mismos valores
+	 * en los atributos o son el mismo objeto.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj != null && getClass() == obj.getClass()) {
@@ -109,13 +167,13 @@ public class Fecha {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("(");
+		sb.append("( ");
 		sb.append(String.valueOf(getAño()));
-		sb.append("/");
+		sb.append(", ");
 		sb.append(String.valueOf(getMes()));
-		sb.append("/");
+		sb.append(", ");
 		sb.append(String.valueOf(getDia()));
-		sb.append(")");
+		sb.append(" )");
 		return sb.toString();
 	}
 

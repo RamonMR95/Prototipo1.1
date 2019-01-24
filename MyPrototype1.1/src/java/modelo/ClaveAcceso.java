@@ -15,7 +15,7 @@ public class ClaveAcceso {
 	}
 
 	public ClaveAcceso() {
-		this("Miau0");
+		this("Miau#0");
 	}
 
 	public ClaveAcceso(ClaveAcceso claveacceso) {

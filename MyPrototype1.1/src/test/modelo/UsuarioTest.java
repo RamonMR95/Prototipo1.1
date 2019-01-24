@@ -14,8 +14,6 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -37,7 +35,7 @@ public class UsuarioTest {
 	@BeforeAll
 	public static void iniciarlizarDatosFijos() {
 		// Objetos no modicados en las pruebas.
-		usuario1 =new Usuario(new Nif("00000001T"), 
+		usuario1 =new Usuario(new Nif("00000001R"), 
 				"Luis", "Roca Mora",
 				new DireccionPostal("Roncal", "10", "30130","Murcia"), 
 				new Correo("luis@gmail.com"), 
@@ -76,31 +74,31 @@ public class UsuarioTest {
 	
 	@Test
 	public void testUsuarioConvencional() {	
-		assertEquals(usuario1.getNif(), "00000001R");
+		assertEquals(usuario1.getNif().getnif(), "00000001R");
 		assertEquals(usuario1.getNombre(), "Luis");
 		assertEquals(usuario1.getApellidos(), "Roca Mora");
-		assertEquals(usuario1.getDireccionPostal(), "Roncal, 10, 30130, Murcia");
-		assertEquals(usuario1.getCorreo(), "luis@gmail.com");
-		assertEquals(usuario1.getFechaNacimiento(), new GregorianCalendar(2000, 03, 21));
-		assertEquals(usuario1.getFechaAlta(), new GregorianCalendar(2018,10,17));
-		assertEquals(usuario1.getClaveAcceso(), "Miau#12");
+		assertEquals(usuario1.getDireccionPostal().toString(), "Roncal, 10, 30130, Murcia");
+		assertEquals(usuario1.getCorreo().getCorreoTexto(), "luis@gmail.com");
+		assertEquals(usuario1.getFechaNacimiento(), new Fecha(2000, 03, 21));
+		assertEquals(usuario1.getFechaAlta(), new Fecha(2018, 10, 17));
+		assertEquals(usuario1.getClaveAcceso().getTexto(), "Miau#12");
 		assertEquals(usuario1.getRol(), Usuario.ROLES[1]);
 	}
 
 	@Test
 	public void testUsuarioDefecto() {
-		assertEquals(usuario2.getNif(), "00000000T");
+		assertEquals(usuario2.getNif().getnif(), "00000001R");
 		assertEquals(usuario2.getNombre(), "Nombre");
 		assertEquals(usuario2.getApellidos(), "Apellido Apellido");
-		assertEquals(usuario2.getDireccionPostal(), "Domicilio");
-		assertEquals(usuario2.getCorreo(), "correo@correo.es");
-		assertEquals(usuario2.getFechaNacimiento().getAño(), new GregorianCalendar().get(Calendar.YEAR));
-		assertEquals(usuario2.getFechaNacimiento().getMes(), new GregorianCalendar().get(Calendar.MONTH));
-		assertEquals(usuario2.getFechaNacimiento().getDia(), new GregorianCalendar().get(Calendar.DATE));
-		assertEquals(usuario2.getFechaAlta().getAño(), new GregorianCalendar().get(Calendar.YEAR));
-		assertEquals(usuario2.getFechaAlta().getMes(), new GregorianCalendar().get(Calendar.MONTH));
-		assertEquals(usuario2.getFechaAlta().getDia(), new GregorianCalendar().get(Calendar.DATE));
-		assertEquals(usuario2.getClaveAcceso(), "Miau#0");
+		assertEquals(usuario2.getDireccionPostal().toString(), "Roncal, 10, 30130, Murcia");
+		assertEquals(usuario2.getCorreo().getCorreoTexto(), "correo@correo.es");
+		assertEquals(usuario2.getFechaNacimiento().getAño(), new Fecha().getAño());
+		assertEquals(usuario2.getFechaNacimiento().getMes(), new Fecha().getMes());
+		assertEquals(usuario2.getFechaNacimiento().getDia(), new Fecha().getDia());
+		assertEquals(usuario2.getFechaAlta().getAño(), new Fecha().getAño());
+		assertEquals(usuario2.getFechaAlta().getMes(), new Fecha().getMes());
+		assertEquals(usuario2.getFechaAlta().getDia(), new Fecha().getDia());
+		assertEquals(usuario2.getClaveAcceso().getTexto(), "Miau#0");
 		assertEquals(usuario2.getRol(), Usuario.ROLES[1]);
 	}
 
@@ -134,13 +132,13 @@ public class UsuarioTest {
 	@Test
 	public void testSetDomicilio() {
 		usuario2.setDireccionPostal(new DireccionPostal("Roncal", "10", "30130", "Murcia"));
-		assertEquals(usuario2.getDireccionPostal(), "Roncal, 10, 30130, Murcia");
+		assertEquals(usuario2.getDireccionPostal().toString(), "Roncal, 10, 30130, Murcia");
 	}
 	
 	@Test
 	public void testSetCorreo() {
 		usuario2.setCorreo(new Correo("luis@gmail.com"));
-		assertEquals(usuario2.getCorreo(), "luis@gmail.com");
+		assertEquals(usuario2.getCorreo().getCorreoTexto(), "luis@gmail.com");
 	}
 	@Test
 	public void testSetFechaNacimiento() {
@@ -157,7 +155,7 @@ public class UsuarioTest {
 	@Test
 	public void testSetClaveAcceso() {
 		usuario2.setClaveAcceso(new ClaveAcceso("Miau#12"));
-		assertEquals(usuario2.getClaveAcceso(), "Miau#12");
+		assertEquals(usuario2.getClaveAcceso().getTexto(), "Miau#12");
 	}
 
 	@Test
@@ -223,7 +221,7 @@ public class UsuarioTest {
 	@Test
 	public void testSetNifBlanco() {
 			usuario2.setNif(new Nif("  "));	
-			assertEquals(usuario2.getNif(), "00000000T");
+			assertEquals(usuario2.getNif().getnif(), "00000001R");
 	}
 	
 	@Test
@@ -274,7 +272,7 @@ public class UsuarioTest {
 	@Test
 	public void testSetDomicilioBlanco() {
 			usuario2.setDireccionPostal(new DireccionPostal(" ", " ", " ", " "));	
-			assertEquals(usuario2.getDireccionPostal(), "Roncal, 10, 30130, Murcia");
+			assertEquals(usuario2.getDireccionPostal().toString(), "Roncal, 10, 30130, Murcia");
 	}
 	
 	@Test
@@ -291,7 +289,7 @@ public class UsuarioTest {
 	@Test
 	public void testSetCorreoBlanco() {
 			usuario2.setCorreo(new Correo("  "));	
-			assertEquals(usuario2.getCorreo(), "correo@correo.es");
+			assertEquals(usuario2.getCorreo().getCorreoTexto(), "correo@correo.es");
 	}
 	
 	@Test
@@ -325,7 +323,8 @@ public class UsuarioTest {
 	@Test
 	public void testSetFechaAltaFuturo() {	
 			usuario1.setFechaAlta(new Fecha(3020, 9, 10));
-			assertEquals(usuario1.getFechaAlta(), new Fecha(2018, 10, 17));
+//			System.out.println(usuario1.getFechaAlta());
+			assertEquals(usuario1.getFechaAlta().getFecha(), new Fecha(2018, 10, 17));
 	}
 	
 	@Test
@@ -342,7 +341,7 @@ public class UsuarioTest {
 	@Test
 	public void testSetClaveAccesoBlanco() {
 			usuario2.setClaveAcceso(new ClaveAcceso("  "));	
-			assertEquals(usuario2.getClaveAcceso(), "Miau#0");
+			assertEquals(usuario2.getClaveAcceso().getTexto(), "Miau#0");
 	}
 	
 	@Test

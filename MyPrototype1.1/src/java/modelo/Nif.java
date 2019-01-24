@@ -11,11 +11,11 @@ public class Nif {
 	private String texto;
 
 	public Nif(String texto) {
-		this.texto = texto;
+		setNif(texto);
 	}
 
 	public Nif() {
-		this.texto = "00000000T";
+		this.texto = "00000001R";
 	}
 
 	public Nif(Nif nif) {

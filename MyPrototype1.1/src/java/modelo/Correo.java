@@ -11,7 +11,7 @@ public class Correo {
 	private String texto;
 
 	public Correo(String texto) {
-		this.texto = texto;
+		setCorreo(texto);
 	}
 	
 	public Correo() {
@@ -22,7 +22,7 @@ public class Correo {
 		this.texto = new String(correo.texto);
 	}
 	
-	public String getCorreo() {
+	public String getCorreoTexto() {
 		return texto;
 	}
 	
