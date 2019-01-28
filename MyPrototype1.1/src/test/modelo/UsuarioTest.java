@@ -86,11 +86,9 @@ public class UsuarioTest {
 
 	@Test
 	public void testUsuarioDefecto() {
-		System.out.println(usuario2.getNif());
 		assertEquals(usuario2.getNif(), new Nif("00000001R"));
 		assertEquals(usuario2.getNombre(), "Nombre");
 		assertEquals(usuario2.getApellidos(), "Apellido Apellido");
-		System.out.println(usuario2.getDireccionPostal().getCalle());
 		assertEquals(usuario2.getDireccionPostal(),new DireccionPostal("calle", "numero", "CP", "poblacion"));
 		assertEquals(usuario2.getCorreo(), new Correo("correo@correo.es"));
 		assertEquals(usuario2.getFechaNacimiento().getYear(),new Fecha().getYear());
@@ -170,7 +168,6 @@ public class UsuarioTest {
 
 	@Test
 	public void testToString() {
-		System.out.println(usuario1.toString());
 		assertEquals(usuario1.toString(), 
 				"nif:             00000001R\n" +
 				"nombre:          Luis\n" +
