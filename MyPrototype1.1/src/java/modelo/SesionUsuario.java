@@ -7,20 +7,19 @@
  */
 package modelo;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import util.Fecha;
 
 public class SesionUsuario {
 
 	private Usuario usr;
-	private Calendar fecha; 
+	private Fecha fecha; 
 
 	/**
 	 * Constructor convencional. Utiliza métodos set...()
 	 * @param usr
 	 * @param fecha
 	 */
-	public SesionUsuario(Usuario usr, Calendar fecha) {
+	public SesionUsuario(Usuario usr, Fecha fecha) {
 		setUsr(usr);
 		setFecha(fecha);
 	}
@@ -29,7 +28,7 @@ public class SesionUsuario {
 	 * Constructor por defecto. Utiliza constructor convencional.
 	 */
 	public SesionUsuario() {
-		this(new Usuario(), new GregorianCalendar());
+		this(new Usuario(), new Fecha());
 	}
 
 	/**
@@ -38,8 +37,8 @@ public class SesionUsuario {
 	 */
 	public SesionUsuario(SesionUsuario sesion) {
 		this.usr = new Usuario(sesion.usr);
-		this.fecha = new GregorianCalendar(sesion.fecha.get(Calendar.YEAR), 
-				sesion.fecha.get(Calendar.MONTH), sesion.fecha.get(Calendar.DATE));
+		this.fecha = new Fecha(sesion.fecha.getYear(), 
+				sesion.fecha.getMonth(), sesion.fecha.getDay());
 	}
 
 	public Usuario getUsr() {
@@ -51,11 +50,11 @@ public class SesionUsuario {
 		this.usr = usr;
 	}
 
-	public Calendar getFecha() {
+	public Fecha getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Calendar fecha) {
+	public void setFecha(Fecha fecha) {
 		assert fecha != null;
 		this.fecha = fecha;
 	}

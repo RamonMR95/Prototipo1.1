@@ -14,8 +14,6 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -32,7 +30,7 @@ public class SesionUsuarioTest {
 	private SesionUsuario sesion1;
 	private static SesionUsuario sesion2;
 	private static Usuario usr;
-	private static Calendar fecha;
+	private static Fecha fecha;
 
 	/**
 	 * Método que se ejecuta una sola vez al principio del conjunto pruebas.
@@ -48,7 +46,7 @@ public class SesionUsuarioTest {
 				new Fecha(2018,10,17), 
 				new ClaveAcceso("Miau#12"), 
 				Usuario.ROLES[1]);
-		fecha = new GregorianCalendar(2018, 10, 20, 10, 35, 2);
+		fecha = new Fecha(2018, 10, 20, 10, 35, 2);
 		sesion2 = new SesionUsuario(usr, fecha); 
 	}
 

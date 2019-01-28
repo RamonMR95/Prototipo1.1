@@ -21,7 +21,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import modelo.Usuario;
 import util.Fecha;
 
 public class UsuarioTest {
@@ -35,15 +34,15 @@ public class UsuarioTest {
 	@BeforeAll
 	public static void iniciarlizarDatosFijos() {
 		// Objetos no modicados en las pruebas.
-		usuario1 =new Usuario(new Nif("00000001R"), 
+		usuario1 = new Usuario(new Nif(), 
 				"Luis", "Roca Mora",
-				new DireccionPostal("Roncal", "10", "30130","Murcia"), 
+				new DireccionPostal("Roncal", "10", "30130", "Murcia"), 
 				new Correo("luis@gmail.com"), 
 				new Fecha(2000, 03, 21),
-				new Fecha(2018, 10, 17), 
-				new ClaveAcceso("Miau#12"), 
+				new Fecha(2018,10,17), 
+				new ClaveAcceso(), 
 				Usuario.ROLES[1]);
-	}
+		}
 
 	/**
 	 * Método que se ejecuta una sola vez al final del conjunto pruebas.
@@ -74,31 +73,33 @@ public class UsuarioTest {
 	
 	@Test
 	public void testUsuarioConvencional() {	
-		assertEquals(usuario1.getNif().getnif(), "00000001R");
+		assertEquals(usuario1.getNif(), new Nif("00000001R"));
 		assertEquals(usuario1.getNombre(), "Luis");
 		assertEquals(usuario1.getApellidos(), "Roca Mora");
-		assertEquals(usuario1.getDireccionPostal().toString(), "Roncal, 10, 30130, Murcia");
-		assertEquals(usuario1.getCorreo().getCorreoTexto(), "luis@gmail.com");
+		assertEquals(usuario1.getDireccionPostal(), new DireccionPostal("Roncal", "10", "30130", "Murcia"));
+		assertEquals(usuario1.getCorreo(), new Correo("luis@gmail.com"));
 		assertEquals(usuario1.getFechaNacimiento(), new Fecha(2000, 03, 21));
-		assertEquals(usuario1.getFechaAlta(), new Fecha(2018, 10, 17));
-		assertEquals(usuario1.getClaveAcceso().getTexto(), "Miau#12");
+		assertEquals(usuario1.getFechaAlta(), new Fecha(2018,10,17));
+		assertEquals(usuario1.getClaveAcceso(), new ClaveAcceso("Miau#0"));
 		assertEquals(usuario1.getRol(), Usuario.ROLES[1]);
 	}
 
 	@Test
 	public void testUsuarioDefecto() {
-		assertEquals(usuario2.getNif().getnif(), "00000001R");
+		System.out.println(usuario2.getNif());
+		assertEquals(usuario2.getNif(), new Nif("00000001R"));
 		assertEquals(usuario2.getNombre(), "Nombre");
 		assertEquals(usuario2.getApellidos(), "Apellido Apellido");
-		assertEquals(usuario2.getDireccionPostal().toString(), "Roncal, 10, 30130, Murcia");
-		assertEquals(usuario2.getCorreo().getCorreoTexto(), "correo@correo.es");
-		assertEquals(usuario2.getFechaNacimiento().getAño(), new Fecha().getAño());
-		assertEquals(usuario2.getFechaNacimiento().getMes(), new Fecha().getMes());
-		assertEquals(usuario2.getFechaNacimiento().getDia(), new Fecha().getDia());
-		assertEquals(usuario2.getFechaAlta().getAño(), new Fecha().getAño());
-		assertEquals(usuario2.getFechaAlta().getMes(), new Fecha().getMes());
-		assertEquals(usuario2.getFechaAlta().getDia(), new Fecha().getDia());
-		assertEquals(usuario2.getClaveAcceso().getTexto(), "Miau#0");
+		System.out.println(usuario2.getDireccionPostal().getCalle());
+		assertEquals(usuario2.getDireccionPostal(),new DireccionPostal("calle", "numero", "CP", "poblacion"));
+		assertEquals(usuario2.getCorreo(), new Correo("correo@correo.es"));
+		assertEquals(usuario2.getFechaNacimiento().getYear(),new Fecha().getYear());
+		assertEquals(usuario2.getFechaNacimiento().getMonth(), new Fecha().getMonth());
+		assertEquals(usuario2.getFechaNacimiento().getDay(), new Fecha().getDay());
+		assertEquals(usuario2.getFechaAlta().getYear(), new Fecha().getYear());
+		assertEquals(usuario2.getFechaAlta().getMonth(), new Fecha().getMonth());
+		assertEquals(usuario2.getFechaAlta().getDay(), new Fecha().getDay());
+		assertEquals(usuario2.getClaveAcceso(), new ClaveAcceso("Miau#0"));
 		assertEquals(usuario2.getRol(), Usuario.ROLES[1]);
 	}
 
@@ -131,14 +132,16 @@ public class UsuarioTest {
 	
 	@Test
 	public void testSetDomicilio() {
-		usuario2.setDireccionPostal(new DireccionPostal("Roncal", "10", "30130", "Murcia"));
-		assertEquals(usuario2.getDireccionPostal().toString(), "Roncal, 10, 30130, Murcia");
+		DireccionPostal direccionLocal = new DireccionPostal("Roncal", "10", "30130", "Murcia");
+		usuario2.setDireccionPostal(direccionLocal);
+		assertEquals(usuario2.getDireccionPostal(),direccionLocal);
 	}
 	
 	@Test
 	public void testSetCorreo() {
-		usuario2.setCorreo(new Correo("luis@gmail.com"));
-		assertEquals(usuario2.getCorreo().getCorreoTexto(), "luis@gmail.com");
+		Correo correoLocal = new Correo("luis@gmail.com");
+		usuario2.setCorreo(correoLocal);
+		assertEquals(usuario2.getCorreo(),correoLocal);
 	}
 	@Test
 	public void testSetFechaNacimiento() {
@@ -154,8 +157,9 @@ public class UsuarioTest {
 
 	@Test
 	public void testSetClaveAcceso() {
-		usuario2.setClaveAcceso(new ClaveAcceso("Miau#12"));
-		assertEquals(usuario2.getClaveAcceso().getTexto(), "Miau#12");
+		ClaveAcceso claveLocal = new ClaveAcceso("Miau#12");
+		usuario2.setClaveAcceso(claveLocal);
+		assertEquals(usuario2.getClaveAcceso(), claveLocal);
 	}
 
 	@Test
@@ -175,7 +179,7 @@ public class UsuarioTest {
 				"correo:          luis@gmail.com\n" +
 				"fechaNacimiento: 2000.3.21\n" +
 				"fechaAlta:       2018.10.17\n" +
-				"claveAcceso:     Miau#12\n" +
+				"claveAcceso:     Miau#0\n" +
 				"rol:             NORMAL\n"
 			);
 	}
@@ -186,17 +190,17 @@ public class UsuarioTest {
 	@Test
 	public void testUsuarioConvencionalBlanco() {
 		
-		Usuario usuario =		
-				new Usuario(new Nif(" "), 
-						" ", 
-						" ",
-						new DireccionPostal(" ", " ", " " ," "),
-						new Correo(" "), 
-						new Fecha(2000, 03, 21),
-						new Fecha(2018,10,17), 
-						new ClaveAcceso(" "), 
-						" ");
-
+		Usuario usuario = new Usuario(
+				new Nif(" "), 
+				" ", 
+				" ",
+				new DireccionPostal(" "," ", " ", " "), 
+				new Correo(" "), 
+				new Fecha(),
+				new Fecha(), 
+				new ClaveAcceso(" "), 
+				" "
+				); 
 		assertNotNull(usuario.getNif());
 		assertNotNull(usuario.getNombre());
 		assertNotNull(usuario.getApellidos());
@@ -221,8 +225,9 @@ public class UsuarioTest {
 	
 	@Test
 	public void testSetNifBlanco() {
-			usuario2.setNif(new Nif("  "));	
-			assertEquals(usuario2.getNif().getnif(), "00000001R");
+			Nif dniBlanco = new Nif("00000000R");
+			usuario2.setNif(new Nif(dniBlanco));	
+			assertEquals(usuario2.getNif(), dniBlanco);
 	}
 	
 	@Test
@@ -260,7 +265,7 @@ public class UsuarioTest {
 	}
 	
 	@Test
-	public void testSetDireccionPostalNull() {
+	public void testSetDomicilioNull() {
 		try {
 			usuario2.setDireccionPostal(null);
 			fail("No debe llegar aquí...");
@@ -272,8 +277,9 @@ public class UsuarioTest {
 	
 	@Test
 	public void testSetDomicilioBlanco() {
-			usuario2.setDireccionPostal(new DireccionPostal(" ", " ", " ", " "));	
-			assertEquals(usuario2.getDireccionPostal().toString(), "Roncal, 10, 30130, Murcia");
+			DireccionPostal domicilioBlanco = new DireccionPostal();
+			usuario2.setDireccionPostal(domicilioBlanco);	
+			assertEquals(usuario2.getDireccionPostal(), domicilioBlanco);
 	}
 	
 	@Test
@@ -289,8 +295,9 @@ public class UsuarioTest {
 	
 	@Test
 	public void testSetCorreoBlanco() {
+			Correo correoBlanco = new Correo("correo@correo.es");
 			usuario2.setCorreo(new Correo("  "));	
-			assertEquals(usuario2.getCorreo().getCorreoTexto(), "correo@correo.es");
+			assertEquals(usuario2.getCorreo(), correoBlanco);
 	}
 	
 	@Test
@@ -340,8 +347,9 @@ public class UsuarioTest {
 
 	@Test
 	public void testSetClaveAccesoBlanco() {
+			ClaveAcceso contraseñaBlanca = new ClaveAcceso("Miau#0");
 			usuario2.setClaveAcceso(new ClaveAcceso("  "));	
-			assertEquals(usuario2.getClaveAcceso().getTexto(), "Miau#0");
+			assertEquals(usuario2.getClaveAcceso(), contraseñaBlanca);
 	}
 	
 	@Test

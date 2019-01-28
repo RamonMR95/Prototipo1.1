@@ -37,55 +37,55 @@ public class Fecha {
 
 	/* Metodos de establecimiento / obtencion de datos */
 
-	public Calendar getFecha() {
-		return tiempo;
-	}
+//	public Calendar getFecha() {
+//		return (Calendar)tiempo;
+//	}
 
-	public int getAño() {
+	public int getYear() {
 		return tiempo.get(Calendar.YEAR);
 	}
 
-	public void setAño(int year) {
+	public void setYear(int year) {
 		tiempo.set(Calendar.YEAR, year);
 	}
 
-	public int getMes() {
+	public int getMonth() {
 		return tiempo.get(Calendar.MONTH) + 1;
 	}
 
-	public void setMes(int month) {
+	public void setMonth(int month) {
 		tiempo.set(Calendar.MONTH, month);
 	}
 
-	public int getDia() {
+	public int getDay() {
 		return tiempo.get(Calendar.DAY_OF_MONTH);
 	}
 
-	public void setDia(int day) {
+	public void setDay(int day) {
 		tiempo.set(Calendar.DAY_OF_MONTH, day);
 	}
 
-	public int getSeg() {
+	public int getSec() {
 		return tiempo.get(Calendar.SECOND);
 	}
 
-	public void setSeg(int second) {
+	public void setSecs(int second) {
 		tiempo.set(Calendar.SECOND, second);
 	}
 
-	public int getMinuto() {
+	public int getMin() {
 		return tiempo.get(Calendar.MINUTE);
 	}
 
-	public void setMinuto(int minute) {
+	public void setMin(int minute) {
 		this.tiempo.set(Calendar.MINUTE, minute);
 	}
 
-	public int getHora() {
+	public int getHour() {
 		return tiempo.get(Calendar.HOUR_OF_DAY);
 	}
 
-	public void setHora(int hour) {
+	public void setHour(int hour) {
 		this.tiempo.set(Calendar.HOUR_OF_DAY, hour);
 	}
 
@@ -144,16 +144,16 @@ public class Fecha {
 	}
 
 	public String toStringMarcaTiempo() {
-		return String.format("%4%02%02%02%02%02", getAño(), getMes(), getDia(), getHora(), getMinuto(), getSeg());
+		return String.format("%4%02%02%02%02%02", getYear(), getMonth(), getDay(), getHour(), getMin(), getSec());
 	}
 
 	public int compareTo(Fecha fecha) {
 		return tiempo.compareTo(fecha.tiempo);
 	}
 	
-	public boolean before(Fecha fecha) {
-		return this.tiempo.before(fecha);
-	}
+//	public boolean before(Fecha fecha) {
+//		return this.tiempo.before(fecha);
+//	}
 
 	@Override
 	public int hashCode() {
@@ -184,11 +184,11 @@ public class Fecha {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("( ");
-		sb.append(String.valueOf(getAño()));
+		sb.append(String.valueOf(getYear()));
 		sb.append(", ");
-		sb.append(String.valueOf(getMes()));
+		sb.append(String.valueOf(getMonth()));
 		sb.append(", ");
-		sb.append(String.valueOf(getDia()));
+		sb.append(String.valueOf(getDay()));
 		sb.append(" )");
 		return sb.toString();
 	}

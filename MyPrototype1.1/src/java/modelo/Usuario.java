@@ -12,6 +12,8 @@ package modelo;
  *  @author: Ramon Moñino
  */
 
+import java.util.GregorianCalendar;
+
 import util.Fecha;
 
 public class Usuario {
@@ -19,7 +21,7 @@ public class Usuario {
 	private Nif nif;
 	private String nombre;
 	private String apellidos;
-	private DireccionPostal direccionpostal;
+	private DireccionPostal direccionPostal;
 	private Correo correo;
 	private Fecha fechaNacimiento;
 	private Fecha fechaAlta;
@@ -40,12 +42,12 @@ public class Usuario {
 	 * @param claveAcceso
 	 * @param rol
 	 */
-	public Usuario(Nif nif, String nombre, String apellidos, DireccionPostal direccionpostal, Correo correo,
+	public Usuario(Nif nif, String nombre, String apellidos, DireccionPostal direccionPostal, Correo correo,
 			Fecha fechaNacimiento, Fecha fechaAlta, ClaveAcceso claveAcceso, String rol) {
 		setNif(nif);
 		setNombre(nombre);
 		setApellidos(apellidos);
-		setDireccionPostal(direccionpostal);
+		setDireccionPostal(direccionPostal);
 		setCorreo(correo);
 		setFechaNacimiento(fechaNacimiento);
 		setFechaAlta(fechaAlta);
@@ -70,11 +72,11 @@ public class Usuario {
 		this.nif = new Nif(usr.nif);
 		this.nombre = new String(usr.nombre);
 		this.apellidos = new String(usr.apellidos);
-		this.direccionpostal = new DireccionPostal(usr.direccionpostal);
+		this.direccionPostal = new DireccionPostal(usr.direccionPostal);
 		this.correo = new Correo(usr.correo);
-		this.fechaNacimiento = new Fecha(usr.fechaNacimiento.getAño(), usr.fechaNacimiento.getMes(),
-				usr.fechaNacimiento.getDia());
-		this.fechaAlta = new Fecha(usr.fechaAlta.getAño(), usr.fechaAlta.getMes(), usr.fechaAlta.getDia());
+		this.fechaNacimiento = new Fecha(usr.fechaNacimiento.getYear(), usr.fechaNacimiento.getMonth(),
+				usr.fechaNacimiento.getDay());
+		this.fechaAlta = new Fecha(usr.fechaAlta.getYear(), usr.fechaAlta.getMonth(), usr.fechaAlta.getDay());
 		this.claveAcceso = new ClaveAcceso(usr.claveAcceso);
 		this.rol = new String(usr.rol);
 	}
@@ -139,12 +141,12 @@ public class Usuario {
 	}
 
 	public DireccionPostal getDireccionPostal() {
-		return direccionpostal;
+		return direccionPostal;
 	}
 
-	public void setDireccionPostal(DireccionPostal direccionpostal) {
-		assert direccionpostal != null;
-		this.direccionpostal = direccionpostal;
+	public void setDireccionPostal(DireccionPostal direccionPostal) {
+		assert direccionPostal != null;
+		this.direccionPostal = direccionPostal;
 
 	}
 
@@ -168,12 +170,12 @@ public class Usuario {
 			this.fechaNacimiento = fechaNacimiento;
 		}
 		if (this.fechaNacimiento == null) {
-			this.fechaNacimiento = new Fecha(); // Tiempo de construccion
+			this.fechaNacimiento = new Usuario().fechaNacimiento; // Tiempo de construccion
 		}
 	}
 
 	private boolean fechaNacimientoValida(Fecha fechaNacimiento) {
-		return fechaNacimiento.before(new Fecha());
+		return fechaNacimiento.toGregorianCalendar().before(new GregorianCalendar());
 	}
 
 	public Fecha getFechaAlta() {
@@ -186,14 +188,13 @@ public class Usuario {
 			this.fechaAlta = fechaAlta;
 		}
 		if (this.fechaAlta == null) {
-			this.fechaAlta = new Fecha();
+			this.fechaAlta = new Usuario().fechaAlta;
 		}
 	}
 
-	private boolean fechaAltaValida(Fecha fechaalta) {
-		return fechaalta.before(new Fecha());
+	private boolean fechaAltaValida(Fecha fechaAlta) {
+		return fechaAlta.toGregorianCalendar().before(new GregorianCalendar());
 	}
-
 
 	public ClaveAcceso getClaveAcceso() {
 		return claveAcceso;
@@ -240,11 +241,12 @@ public class Usuario {
 		return String.format(
 				"%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n"
 						+ "%-16s %s\n" + "%-16s %s\n",
-				"nif:", nif, "nombre:", this.nombre, "apellidos:", this.apellidos, "domicilio:", this.direccionpostal,
+				"nif:", nif, "nombre:", this.nombre, "apellidos:", this.apellidos, "domicilio:", this.direccionPostal,
 				"correo:", this.correo, "fechaNacimiento:",
-				this.fechaNacimiento.getAño() + "." + this.fechaNacimiento.getMes() + "."
-						+ this.fechaNacimiento.getDia(),
-				"fechaAlta:", this.fechaAlta.getAño() + "." + this.fechaAlta.getMes() + "." + this.fechaAlta.getDia(),
+				this.fechaNacimiento.getYear() + "." + this.fechaNacimiento.getMonth() + "."
+						+ this.fechaNacimiento.getDay(),
+				"fechaAlta:",
+				this.fechaAlta.getYear() + "." + this.fechaAlta.getMonth() + "." + this.fechaAlta.getDay(),
 				"claveAcceso:", this.claveAcceso, "rol:", this.rol);
 	}
 

@@ -21,7 +21,7 @@ public class DireccionPostal {
 	}
 
 	public DireccionPostal() {
-		this("Roncal", "10", "30130", "Murcia");
+		this("calle", "numero", "CP", "poblacion");
 	}
 
 	public DireccionPostal(DireccionPostal direccionpostal) {

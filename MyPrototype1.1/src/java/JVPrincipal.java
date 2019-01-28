@@ -14,7 +14,6 @@ Proyecto: Juego de la vida.
  * @author: ajp
  */
 
-import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 import modelo.ClaveAcceso;
@@ -111,7 +110,7 @@ public class JVPrincipal {
 	static void registrarSesion() {
 		SesionUsuario sesion = new SesionUsuario();
 		sesion.setUsr(usrEnSesion);
-		sesion.setFecha(new GregorianCalendar()); // Hoy
+		sesion.setFecha(new Fecha()); // Hoy
 
 		// Registra sesion de usuario a partir de la última posición ocupada.
 		datosSesiones[sesionesRegistradas] = sesion;
