@@ -26,8 +26,8 @@ public class Usuario {
 	private Fecha fechaNacimiento;
 	private Fecha fechaAlta;
 	private ClaveAcceso claveAcceso;
-	private String rol;
-	public final static String[] ROLES = { "INVITADO", "NORMAL", "ADMINSTRADOR" };
+	private RolUsuario rol;
+	public enum RolUsuario { INVITADO, NORMAL, ADMINSTRADOR };
 
 	/**
 	 * Constructor convencional. Utiliza métodos set...()
@@ -43,7 +43,7 @@ public class Usuario {
 	 * @param rol
 	 */
 	public Usuario(Nif nif, String nombre, String apellidos, DireccionPostal direccionPostal, Correo correo,
-			Fecha fechaNacimiento, Fecha fechaAlta, ClaveAcceso claveAcceso, String rol) {
+			Fecha fechaNacimiento, Fecha fechaAlta, ClaveAcceso claveAcceso, RolUsuario rol) {
 		setNif(nif);
 		setNombre(nombre);
 		setApellidos(apellidos);
@@ -60,7 +60,7 @@ public class Usuario {
 	 */
 	public Usuario() {
 		this(new Nif(), "Nombre", "Apellido Apellido", new DireccionPostal(), new Correo(), new Fecha(), new Fecha(),
-				new ClaveAcceso(), ROLES[1]);
+				new ClaveAcceso(), RolUsuario.NORMAL );
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class Usuario {
 				usr.fechaNacimiento.getDay());
 		this.fechaAlta = new Fecha(usr.fechaAlta.getYear(), usr.fechaAlta.getMonth(), usr.fechaAlta.getDay());
 		this.claveAcceso = new ClaveAcceso(usr.claveAcceso);
-		this.rol = new String(usr.rol);
+		this.rol = usr.rol;
 	}
 
 	public Nif getNif() {
@@ -205,29 +205,13 @@ public class Usuario {
 		this.claveAcceso = claveAcceso;
 	}
 
-	public String getRol() {
+	public RolUsuario getRol() {
 		return rol;
 	}
 
-	public void setRol(String rol) {
+	public void setRol(RolUsuario rol) {
 		assert rol != null;
-		if (rolValido(rol)) {
 			this.rol = rol;
-		}
-		// Todavía no se gestionan errores de usuario.
-		if (this.rol == null) { // Tiempo de construcción.
-			this.rol = new Usuario().rol; // Defecto.
-		}
-	}
-
-	/**
-	 * Comprueba validez de un rol.
-	 * 
-	 * @param rol.
-	 * @return true si cumple.
-	 */
-	private boolean rolValido(String rol) {
-		return ROLES[0].equals(rol) || ROLES[1].equals(rol) || ROLES[2].equals(rol);
 	}
 
 	/**

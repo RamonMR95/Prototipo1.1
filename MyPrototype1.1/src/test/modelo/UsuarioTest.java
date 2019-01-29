@@ -11,6 +11,7 @@ package modelo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -21,6 +22,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import modelo.Usuario.RolUsuario;
 import util.Fecha;
 
 public class UsuarioTest {
@@ -41,7 +43,7 @@ public class UsuarioTest {
 				new Fecha(2000, 03, 21),
 				new Fecha(2018,10,17), 
 				new ClaveAcceso(), 
-				Usuario.ROLES[1]);
+				RolUsuario.NORMAL);
 		}
 
 	/**
@@ -81,7 +83,7 @@ public class UsuarioTest {
 		assertEquals(usuario1.getFechaNacimiento(), new Fecha(2000, 03, 21));
 		assertEquals(usuario1.getFechaAlta(), new Fecha(2018,10,17));
 		assertEquals(usuario1.getClaveAcceso(), new ClaveAcceso("Miau#0"));
-		assertEquals(usuario1.getRol(), Usuario.ROLES[1]);
+		assertEquals(usuario1.getRol(), RolUsuario.NORMAL);
 	}
 
 	@Test
@@ -98,7 +100,7 @@ public class UsuarioTest {
 		assertEquals(usuario2.getFechaAlta().getMonth(), new Fecha().getMonth());
 		assertEquals(usuario2.getFechaAlta().getDay(), new Fecha().getDay());
 		assertEquals(usuario2.getClaveAcceso(), new ClaveAcceso("Miau#0"));
-		assertEquals(usuario2.getRol(), Usuario.ROLES[1]);
+		assertEquals(usuario2.getRol(), RolUsuario.NORMAL);
 	}
 
 	@Test
@@ -113,7 +115,7 @@ public class UsuarioTest {
 		assertNotSame(usuario.getFechaNacimiento(), usuario1.getFechaNacimiento());
 		assertNotSame(usuario.getFechaAlta(), usuario1.getFechaAlta());
 		assertNotSame(usuario.getClaveAcceso(), usuario1.getClaveAcceso());
-		assertNotSame(usuario.getRol(), usuario1.getRol());
+		assertSame(usuario.getRol(), RolUsuario.NORMAL);
 	}
 	
 	@Test
@@ -162,8 +164,8 @@ public class UsuarioTest {
 
 	@Test
 	public void testSetRol() {
-		usuario2.setRol(Usuario.ROLES[1]);
-		assertEquals(usuario1.getRol(), Usuario.ROLES[1]);
+		usuario2.setRol(Usuario.RolUsuario.NORMAL);
+		assertEquals(usuario1.getRol(), Usuario.RolUsuario.NORMAL);
 	}
 
 	@Test
@@ -196,7 +198,7 @@ public class UsuarioTest {
 				new Fecha(),
 				new Fecha(), 
 				new ClaveAcceso(" "), 
-				" "
+				RolUsuario.NORMAL
 				); 
 		assertNotNull(usuario.getNif());
 		assertNotNull(usuario.getNombre());

@@ -19,6 +19,7 @@ import java.util.Scanner;
 import modelo.ClaveAcceso;
 import modelo.SesionUsuario;
 import modelo.Simulacion;
+import modelo.Usuario.RolUsuario;
 import util.Fecha;
 import modelo.*;
 
@@ -136,7 +137,7 @@ public class JVPrincipal {
 										new Correo("pepe" + i + "@gmail.com"), 
 										new Fecha(1999, 11, 12),
 										new Fecha(2018, 01, 03), 
-										new ClaveAcceso("Miau#" + i), Usuario.ROLES[0]);
+										new ClaveAcceso("Miau#" + i), RolUsuario.NORMAL);
 		}
 	}
 

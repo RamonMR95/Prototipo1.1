@@ -25,6 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import modelo.Simulacion;
 import modelo.Usuario;
+import modelo.Usuario.RolUsuario;
 import util.Fecha;
 
 public class SimulacionTest {
@@ -48,7 +49,7 @@ public class SimulacionTest {
 				new Fecha(2000, 03, 21),
 				new Fecha(2018,10,17), 
 				new ClaveAcceso("Miau#12"), 
-				Usuario.ROLES[1]);
+				RolUsuario.NORMAL);
 		fecha = new GregorianCalendar(2018, 10, 20, 10, 35, 2);
 		espacioMundo = new byte[10][10];
 		simulacion1 = new Simulacion(usr, fecha, espacioMundo);
