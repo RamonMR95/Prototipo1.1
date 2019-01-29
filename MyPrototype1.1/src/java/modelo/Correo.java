@@ -33,12 +33,12 @@ public class Correo {
 		}
 		// Todavía no se gestionan errores
 		if (this.texto == null) {
-			this.texto = new Correo().texto; // Construyo un objeto por defecto evito NULL ( Tiempo de construccion
-													// ).
+			this.texto = new Correo().texto; // Construyo un objeto por defecto ( Tiempo de construccion )
+													
 		}
 	}
 	private boolean correoValido(String texto) {
-		return !texto.matches("[ ]+");
+		return texto.matches("^[\\w-\\+]+(\\.[\\w-\\+]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
 	}
 

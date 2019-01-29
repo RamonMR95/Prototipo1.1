@@ -21,6 +21,7 @@ public class Usuario {
 	private Nif nif;
 	private String nombre;
 	private String apellidos;
+	private String idUsr;
 	private DireccionPostal direccionPostal;
 	private Correo correo;
 	private Fecha fechaNacimiento;
@@ -31,7 +32,6 @@ public class Usuario {
 
 	/**
 	 * Constructor convencional. Utiliza métodos set...()
-	 * 
 	 * @param nif
 	 * @param nombre
 	 * @param apellidos
@@ -47,6 +47,7 @@ public class Usuario {
 		setNif(nif);
 		setNombre(nombre);
 		setApellidos(apellidos);
+		setIdUsr();
 		setDireccionPostal(direccionPostal);
 		setCorreo(correo);
 		setFechaNacimiento(fechaNacimiento);
@@ -65,7 +66,6 @@ public class Usuario {
 
 	/**
 	 * Constructor copia.
-	 * 
 	 * @param usr
 	 */
 	public Usuario(Usuario usr) {
@@ -107,7 +107,6 @@ public class Usuario {
 
 	/**
 	 * Comprueba validez del nombre.
-	 * 
 	 * @param nombre.
 	 * @return true si cumple.
 	 */
@@ -132,12 +131,42 @@ public class Usuario {
 
 	/**
 	 * Comprueba validez de los apellidos.
-	 * 
 	 * @param apellidos.
 	 * @return true si cumple.
 	 */
 	private boolean apellidosValidos(String apellidos) {
 		return !apellidos.matches("[ ]+"); // Que no sea en blanco.
+	}
+	
+	/**
+	 * Devuelve el id del usuario
+	 * @return isUsr
+	 */
+	public String getIdUsr() {
+		return idUsr;
+	}
+	
+	/**
+	 * Metodo que establece el idUsr
+	 * @param idUsr
+	 */
+	public void setIdUsr() {
+		this.idUsr = generarIdUsr();
+	}
+	
+	/**
+	 * Metodo que genera un ID de usuario
+	 * @param idUsr
+	 * @return id
+	 */
+	public String generarIdUsr() {
+		StringBuilder id = new StringBuilder();
+		id.append(this.nombre.substring(0, 1).toUpperCase());
+		String[]divApellidos = this.apellidos.split("\\s+");
+		id.append(divApellidos[0].substring(0, 1).toUpperCase());
+		id.append(divApellidos[1].substring(0, 1).toUpperCase());
+		id.append(this.nif.getnif().substring(8, 10));
+		return id.toString();
 	}
 
 	public DireccionPostal getDireccionPostal() {
@@ -216,19 +245,32 @@ public class Usuario {
 
 	/**
 	 * Redefine el método heredado de la clase Objecto.
-	 * 
 	 * @return el texto formateado del estado -valores de atributos- de objeto de la
 	 *         clase Usuario.
 	 */
 	@Override
 	public String toString() {
 		return String.format(
-				"%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n" + "%-16s %s\n"
-						+ "%-16s %s\n" + "%-16s %s\n",
-				"nif:", nif, "nombre:", this.nombre, "apellidos:", this.apellidos, "domicilio:", this.direccionPostal,
-				"correo:", this.correo, "fechaNacimiento:",
+				"%-16s %s\n" +
+				"%-16s %s\n" + 
+				"%-16s %s\n" + 
+				"%-16s %s\n" + 
+				"%-16s %s\n" + 
+				"%-16s %s\n" + 
+				"%-16s %s\n" + 
+				"%-16s %s\n" +
+				"%-16s %s\n" + 
+				"%-16s %s\n",
+				"nif:", nif, 
+				"nombre:", this.nombre, 
+				"apellidos:", this.apellidos,
+				"idUsr:", this.idUsr, 
+				"domicilio:", this.direccionPostal,
+				"correo:", this.correo, 
+				"fechaNacimiento:",
 				this.fechaNacimiento.getYear() + "." + this.fechaNacimiento.getMonth() + "."
 						+ this.fechaNacimiento.getDay(),
+						
 				"fechaAlta:",
 				this.fechaAlta.getYear() + "." + this.fechaAlta.getMonth() + "." + this.fechaAlta.getDay(),
 				"claveAcceso:", this.claveAcceso, "rol:", this.rol);

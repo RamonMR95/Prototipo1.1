@@ -33,21 +33,31 @@ public class ClaveAcceso {
 		}
 		// Todavía no se gestionan errores
 		if (this.texto == null) {
-			this.texto = new ClaveAcceso().texto; // Construyo un objeto por defecto evito NULL ( Tiempo de construccion
-													// ).
+			this.texto = new ClaveAcceso().texto; // Construyo un objeto por defecto  ( Tiempo de construccion ).
 		}
 	}
 
-	private String encriptarCesar(String texto) {
-		StringBuilder result = new StringBuilder(texto);
-
-		// TODO genenar la encriptación
-
+	static String encriptarCesar(String texto) {
+		StringBuilder result = new StringBuilder();
+		int desplazamiento = 400;
+		for (int i = 0; i < texto.length(); i++) {
+			result.append((char)(texto.charAt(i) + desplazamiento));
+		}
 		return result.toString();
 	}
+	
+	static String desencriptarCesar(String texto) {
+		StringBuilder result = new StringBuilder();
+		int desplazamiento = 400;
+		for (int i = 0; i < texto.length(); i++) {
+			result.append((char)(texto.charAt(i) - desplazamiento));
+		}
+		return result.toString();
+	}
+	
 
 	private boolean claveAccesoValida(String texto) {
-		return !texto.matches("[ ]+");
+		return texto.matches(".{4,32}");
 
 	}
 

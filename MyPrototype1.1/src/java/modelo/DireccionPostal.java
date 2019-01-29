@@ -21,7 +21,7 @@ public class DireccionPostal {
 	}
 
 	public DireccionPostal() {
-		this("calle", "numero", "CP", "poblacion");
+		this("calle", "15", "30157", "poblacion");
 	}
 
 	public DireccionPostal(DireccionPostal direccionpostal) {
@@ -47,7 +47,7 @@ public class DireccionPostal {
 	}
 
 	private boolean calleValida(String calle) {
-		return !calle.matches("[ ]+");
+		return calle.matches("\\w+|\\/");
 	}
 
 	public String getNumero() {
@@ -65,7 +65,7 @@ public class DireccionPostal {
 	}
 
 	private boolean numeroValido(String numero) {
-		return !numero.matches("[ ]+");
+		return numero.matches("\\d{1,3}");
 	}
 
 	public String getCP() {
@@ -83,7 +83,7 @@ public class DireccionPostal {
 	}
 
 	private boolean cpValido(String CP) {
-		return !CP.matches("[ ]+");
+		return CP.matches("\\d{5}");
 	}
 
 	public String getPoblacion() {

@@ -170,6 +170,7 @@ public class UsuarioTest {
 
 	@Test
 	public void testToString() {
+		System.out.println(usuario1);
 		assertEquals(usuario1.toString(), 
 				"nif:             00000001R\n" +
 				"nombre:          Luis\n" +
