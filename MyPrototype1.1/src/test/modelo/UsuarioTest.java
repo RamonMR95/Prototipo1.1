@@ -2,10 +2,10 @@ package modelo;
 /** 
  * Proyecto: Juego de la vida.
  * Clase JUnit5 de prueba automatizada de las características de la clase Usuario según el modelo1.
- * @since: prototipo1
+ * @since: prototipo1.1
  * @source: TestUsuario.java 
- * @version: 1.0 - 2018.11.21
- * @author: ajp
+ * @version: 1.1 - 2019.01.29
+ * @author: Ramon Moñino 
  */
 
 import static org.junit.Assert.assertEquals;
