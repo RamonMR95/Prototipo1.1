@@ -13,13 +13,17 @@ package modelo;
  * @author: Ramon Moñino
  */
 
+import accesoUsr.Presentacion;
 import util.Fecha;
 
 public class Simulacion {
 
 	private Usuario usr;
 	private Fecha fecha;
-	private byte[][] mundo;
+
+	public static final int TAMAÑO_MUNDO = 18;
+	public static final int CICLOS_SIMULACION = 20;
+	private static byte[][] mundo = new byte[TAMAÑO_MUNDO][TAMAÑO_MUNDO];
 
 	// Reglas simulación
 	private int[] valoresSobrevivir;
@@ -31,14 +35,11 @@ public class Simulacion {
 
 	private static final FormaEspacio TIPO_MUNDO = FormaEspacio.PLANO;
 
-	private static final int TAMAÑO_MUNDO = 18;
-	private static final int CICLOS_SIMULACION = 20;
 
 	/**
 	 * Constructor convencional. Establece el valor inicial de cada uno de los
 	 * atributos. Recibe parámetros que se corresponden con los atributos. Utiliza
 	 * métodos set... para la posible verificación.
-	 * 
 	 * @param usr
 	 * @param fecha
 	 * @param mundo
@@ -60,14 +61,15 @@ public class Simulacion {
 	 * de los atributos. Llama al constructor convencional de la propia clase.
 	 */
 	public Simulacion() {
-		this(new Usuario(), new Fecha(), new byte[TAMAÑO_MUNDO][TAMAÑO_MUNDO]);
+		setUsr(new Usuario());
+		setFecha(new Fecha());
+		leyesEstandar();
 	}
 
 	/**
 	 * Constructor copia. Establece el valor inicial de cada uno de los atributos a
 	 * partir de los valores obtenidos de un objeto de su misma clase. El objeto
 	 * Usuario es compartido (agregación). Llama al constructor convencional.
-	 * 
 	 * @param s - la Simulacion a clonar
 	 */
 	public Simulacion(Simulacion s) {
@@ -121,7 +123,7 @@ public class Simulacion {
 		int generacion = 0;
 		do {
 			System.out.println("\nGeneración: " + generacion);
-			mostrarMundo();
+			new Presentacion().mostrarMundo();
 			actualizarMundo();
 			generacion++;
 		} while (generacion < CICLOS_SIMULACION);
@@ -131,40 +133,26 @@ public class Simulacion {
 	 * Carga datos demo en la matriz que representa el mundo.
 	 */
 	private void cargarMundoDemo() {
-		// En este array los 0 indican celdas con células muertas y los 1 vivas.
-		mundo = new byte[][] { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
-				{ 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
-				{ 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
-				{ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0 }, //
-				{ 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0 }, //
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0 }, //
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0 }, //
-				{ 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, // 1x Planeador
-				{ 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, // 1x Flip-Flop
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, // 1x Still Life
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } //
+		mundo = new byte[][] { 
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0 }, 
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0 }, 
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0 }, 
+				{ 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } 
 		};
-	}
-
-	/**
-	 * Despliega en la consola el estado almacenado, corresponde a una generación
-	 * del Juego de la vida.
-	 */
-	private void mostrarMundo() {
-
-		for (int i = 0; i < TAMAÑO_MUNDO; i++) {
-			for (int j = 0; j < TAMAÑO_MUNDO; j++) {
-				System.out.print((mundo[i][j] == 1) ? "|o" : "| ");
-			}
-			System.out.println("|");
-		}
 	}
 
 	/**
@@ -201,11 +189,11 @@ public class Simulacion {
 			for (int j = 0; j < TAMAÑO_MUNDO; j++) {
 				int vecinas = 0;
 				vecinas += visitarCeldaNoroeste(i, j);
-				vecinas += visitarCeldaNorte(i, j); // NO | N | NE
-				vecinas += visitarCeldaNoreste(i, j); // -----------
-				vecinas += visitarCeldaEste(i, j); // O | * | E
-				vecinas += visitarCeldaSureste(i, j); // -----------
-				vecinas += visitarCeldaSur(i, j); // SO | S | SE
+				vecinas += visitarCeldaNorte(i, j);
+				vecinas += visitarCeldaNoreste(i, j);
+				vecinas += visitarCeldaEste(i, j);
+				vecinas += visitarCeldaSureste(i, j);
+				vecinas += visitarCeldaSur(i, j);
 				vecinas += visitarCeldaSuroeste(i, j);
 				vecinas += visitarCeldaOeste(i, j);
 
@@ -218,7 +206,6 @@ public class Simulacion {
 	/**
 	 * Aplica las leyes del mundo a la celda indicada dada la cantidad de células
 	 * adyacentes vivas.
-	 * 
 	 * @param nuevoEstado
 	 * @param fila
 	 * @param col
@@ -244,7 +231,6 @@ public class Simulacion {
 	/**
 	 * Obtiene el estado o valor de la celda vecina situada al Oeste de la indicada
 	 * por la coordenada.
-	 * 
 	 * @param fila de la celda evaluada.
 	 * @param col  de la celda evaluada.
 	 * @return el estado o valor de la celda Oeste.
@@ -259,7 +245,6 @@ public class Simulacion {
 	/**
 	 * Obtiene el estado o valor de la celda vecina situada al Suroeste de la
 	 * indicada por la coordenada.
-	 * 
 	 * @param fila de la celda evaluada.
 	 * @param col  de la celda evaluada.
 	 * @return el estado o valor de la celda Suroeste.
@@ -274,7 +259,6 @@ public class Simulacion {
 	/**
 	 * Obtiene el estado o valor de la celda vecina situada al Sur de la indicada
 	 * por la coordenada.
-	 * 
 	 * @param fila de la celda evaluada.
 	 * @param col  de la celda evaluada.
 	 * @return el estado o valor de la celda Sur.
@@ -289,7 +273,6 @@ public class Simulacion {
 	/**
 	 * Obtiene el estado o valor de la celda vecina situada al Sureste de la
 	 * indicada por la coordenada.
-	 * 
 	 * @param fila de la celda evaluada.
 	 * @param col  de la celda evaluada.
 	 * @return el estado o valor de la celda Sureste.
@@ -304,7 +287,6 @@ public class Simulacion {
 	/**
 	 * Obtiene el estado o valor de la celda vecina situada al Este de la indicada
 	 * por la coordenada.
-	 * 
 	 * @param fila de la celda evaluada.
 	 * @param col  de la celda evaluada.
 	 * @return el estado o valor de la celda Este.
@@ -319,7 +301,6 @@ public class Simulacion {
 	/**
 	 * Obtiene el estado o valor de la celda vecina situada al Noreste de la
 	 * indicada por la coordenada.
-	 * 
 	 * @param fila de la celda evaluada.
 	 * @param col  de la celda evaluada.
 	 * @return el estado o valor de la celda Noreste.
@@ -334,7 +315,6 @@ public class Simulacion {
 	/**
 	 * Obtiene el estado o valor de la celda vecina situada al NO de la indicada por
 	 * la coordenada.
-	 * 
 	 * @param fila de la celda evaluada.
 	 * @param col  de la celda evaluada.
 	 * @return el estado o valor de la celda NO.
@@ -349,7 +329,6 @@ public class Simulacion {
 	/**
 	 * Obtiene el estado o valor de la celda vecina situada al Noroeste de la
 	 * indicada por la coordenada.
-	 * 
 	 * @param fila de la celda evaluada.
 	 * @param col  de la celda evaluada.
 	 * @return el estado o valor de la celda Noroeste.

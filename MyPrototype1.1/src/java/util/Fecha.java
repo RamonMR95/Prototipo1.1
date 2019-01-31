@@ -128,7 +128,7 @@ public class Fecha {
 
 	public Fecha addAños(int años) {
 		this.tiempo.add(Calendar.YEAR, años);
-		return this;
+		return this; //resultado se devuelve asi mismo
 	}
 
 	public GregorianCalendar toGregorianCalendar() {
@@ -151,9 +151,13 @@ public class Fecha {
 		return tiempo.compareTo(fecha.tiempo);
 	}
 	
-//	public boolean before(Fecha fecha) {
-//		return this.tiempo.before(fecha);
-//	}
+	public boolean before(Fecha fecha) {
+		return this.tiempo.before(fecha.tiempo);
+	}
+	
+	public boolean after(Fecha fecha) {
+		return this.tiempo.after(fecha.tiempo);
+	}
 
 	@Override
 	public int hashCode() {

@@ -12,8 +12,6 @@ package modelo;
  *  @author: Ramon Moñino
  */
 
-import java.util.GregorianCalendar;
-
 import util.Fecha;
 
 public class Usuario {
@@ -204,7 +202,7 @@ public class Usuario {
 	}
 
 	private boolean fechaNacimientoValida(Fecha fechaNacimiento) {
-		return fechaNacimiento.toGregorianCalendar().before(new GregorianCalendar());
+		return !fechaNacimiento.after(new Fecha());
 	}
 
 	public Fecha getFechaAlta() {
@@ -222,7 +220,7 @@ public class Usuario {
 	}
 
 	private boolean fechaAltaValida(Fecha fechaAlta) {
-		return fechaAlta.toGregorianCalendar().before(new GregorianCalendar());
+		return !fechaAlta.after(new Fecha());
 	}
 
 	public ClaveAcceso getClaveAcceso() {
