@@ -15,9 +15,6 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +27,7 @@ import util.Fecha;
 
 public class SimulacionTest {
 	private static Usuario usr;
-	private static GregorianCalendar fecha;
+	private static Fecha fecha;
 	private static byte[][] espacioMundo;
 	private static Simulacion simulacion1;
 	private Simulacion simulacion2;
@@ -50,7 +47,7 @@ public class SimulacionTest {
 				new Fecha(2018,10,17), 
 				new ClaveAcceso("Miau#12"), 
 				RolUsuario.NORMAL);
-		fecha = new GregorianCalendar(2018, 10, 20, 10, 35, 2);
+		fecha = new Fecha(2018, 10, 20, 10, 35, 2);
 		espacioMundo = new byte[10][10];
 		simulacion1 = new Simulacion(usr, fecha, espacioMundo);
 	}
@@ -77,9 +74,9 @@ public class SimulacionTest {
 	@Test
 	public void testSimulacionDefecto() {
 		assertEquals(simulacion2.getUsr().getNif(), new Usuario().getNif());
-		assertEquals(simulacion2.getFecha().get(Calendar.YEAR), new GregorianCalendar().get(Calendar.YEAR));
-		assertEquals(simulacion2.getFecha().get(Calendar.MONTH), new GregorianCalendar().get(Calendar.MONTH));
-		assertEquals(simulacion2.getFecha().get(Calendar.DATE), new GregorianCalendar().get(Calendar.DATE));
+		assertEquals(simulacion2.getFecha().getYear(), new Fecha().getYear());
+		assertEquals(simulacion2.getFecha().getMonth(), new Fecha().getMonth());
+		assertEquals(simulacion2.getFecha().getDay(), new Fecha().getDay());
 		assertNotNull(simulacion2.getMundo());
 	}
 

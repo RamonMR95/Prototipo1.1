@@ -132,7 +132,7 @@ public class JVPrincipal {
 	 */
 	static void cargarUsuariosPrueba() {
 		for (int i = 0; i < MAX_USUARIOS; i++) {
-			datosUsuarios[i] = new Usuario(new Nif("12345678" + i + "K"), "Pepe", "López Pérez",
+			datosUsuarios[i] = new Usuario(new Nif("1234567" + i + "K"), "Pepe", "López Pérez",
 										new DireccionPostal("C/ Luna", "2" + i, "3013" + i, "Murcia"),
 										new Correo("pepe" + i + "@gmail.com"), 
 										new Fecha(1999, 11, 12),

@@ -194,7 +194,7 @@ public class Fecha {
 	}
 
 	@Override
-	protected Fecha clone() {
+	public Fecha clone() {
 		return new Fecha(this);
 	}
 }
