@@ -33,13 +33,39 @@ public class Nif {
 		}
 		// Todavía no se gestionan errores
 		if (this.texto == null) {
-			this.texto = new Nif().texto; // Construyo un objeto por defecto evito NULL ( Tiempo de construccion ).
+			this.texto = nifGenerado(texto);
 		}
 	}
 
 	private boolean nifValido(String texto) {
-		return !texto.matches("[ ]+");
-
+		String numeros = texto.substring(0 ,8);
+		String letrasDNI = "TRWAGMYFPDXBNJZSQVHLCKE";
+		int suma = 0;
+		int total = 0;
+				
+		for (int i = 0; i < numeros.length(); i ++) {
+			suma += Character.getNumericValue(numeros.charAt(i));
+		}
+		
+		total = suma % 23;
+		
+		return texto.substring(8,9).equals(String.valueOf(letrasDNI.charAt(total)));
+	}
+	
+	private String nifGenerado(String texto) {
+		String numeros = texto.substring(0 ,8);
+		StringBuilder sb = new StringBuilder(numeros);
+		String letrasDNI = "TRWAGMYFPDXBNJZSQVHLCKE";
+		int suma = 0;
+		int total = 0;
+				
+		for (int i = 0; i < numeros.length(); i ++) {
+			suma += Character.getNumericValue(numeros.charAt(i));
+		}
+		
+		total = suma % 23;
+		sb.append(letrasDNI.charAt(total));
+		return sb.toString();
 	}
 
 	@Override

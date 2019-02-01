@@ -17,9 +17,12 @@ import modelo.Usuario;
 
 public class Presentacion {
 
-	public static Usuario usrEnSesion;
+	private static Usuario usrEnSesion;
 	private static final int MAX_INTENTOS_FALLIDOS = 3;
 
+	public Usuario getUsrEnSesion() {
+		return usrEnSesion;
+	}
 	/**
 	 * Controla el acceso de usuario.
 	 * @return true si la sesión se inicia correctamente.
