@@ -10,7 +10,9 @@ package modelo;
 import util.Fecha;
 
 public class SesionUsuario {
-
+	/**
+	 * Atributos de la clase Sesion de usuario
+	 */
 	private Usuario usr;
 	private Fecha fecha;
 
@@ -40,24 +42,44 @@ public class SesionUsuario {
 		this.fecha = new Fecha(sesion.fecha.getYear(), sesion.fecha.getMonth(), sesion.fecha.getDay());
 	}
 
+	/**
+	 * Metodo get que obtiene el usuario que inicia sesion
+	 * @return usr
+	 */
 	public Usuario getUsr() {
 		return usr;
 	}
 
+	/**
+	 * Metodo set que establece el usuario que va a iniciar sesion
+	 * @param usr
+	 */
 	public void setUsr(Usuario usr) {
 		assert usr != null;
 		this.usr = usr;
 	}
 
+	/**
+	 * Metodo get que obtiene la fecha en la que el usuario inicia sesion
+	 * @return fecha
+	 */
 	public Fecha getFecha() {
 		return fecha;
 	}
 
+	/**
+	 * Metodo set que establece la fecha de inicio de sesion de usuario
+	 * @param fecha
+	 */
 	public void setFecha(Fecha fecha) {
 		assert fecha != null;
 		this.fecha = fecha;
 	}
 
+	/**
+	 * Metodo que genera un id de sesion cuando un usuario inicia sesion
+	 * @return idSesion
+	 */
 	public String getIdSesion() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.usr.getIdUsr());

@@ -55,7 +55,6 @@ public class Datos {
 
 	/**
 	 * Busca usuario dado su nif.
-	 * 
 	 * @param idUsr - el nif del Usuario a buscar.
 	 * @return - el Usuario encontrado o null si no existe.
 	 */

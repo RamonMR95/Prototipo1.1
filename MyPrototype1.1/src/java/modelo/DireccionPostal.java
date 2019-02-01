@@ -8,11 +8,21 @@
 package modelo;
 
 public class DireccionPostal {
+	/**
+	 * Atributos que van a formar nuestra direccion.
+	 */
 	private String calle;
 	private String numero;
 	private String CP;
 	private String poblacion;
 
+	/**
+	 * Constructor convencional de la clase que usa los metodos set.
+	 * @param calle
+	 * @param numero
+	 * @param CP
+	 * @param poblacion
+	 */
 	public DireccionPostal(String calle, String numero, String CP, String poblacion) {
 		setCalle(calle);
 		setNumero(numero);
@@ -20,10 +30,17 @@ public class DireccionPostal {
 		setPoblacion(poblacion);
 	}
 
+	/**
+	 * Constructor por defecto de la clase.
+	 */
 	public DireccionPostal() {
 		this("calle", "15", "30157", "poblacion");
 	}
 
+	/**
+	 * Constructor copia de la clase.
+	 * @param direccionpostal
+	 */
 	public DireccionPostal(DireccionPostal direccionpostal) {
 		this.calle = new String(direccionpostal.calle);
 		this.numero = new String(direccionpostal.numero);
@@ -31,10 +48,18 @@ public class DireccionPostal {
 		this.poblacion = new String(direccionpostal.poblacion);
 	}
 
+	/**
+	 * Metodo get que obtiene la cadena de caracteres que forma la calle.
+	 * @return calle
+	 */
 	public String getCalle() {
 		return calle;
 	}
 
+	/**
+	 * Metodo set que establece la calle de la direccion postal
+	 * @param calle
+	 */
 	public void setCalle(String calle) {
 		assert calle != null;
 		if (calleValida(calle)) {
@@ -46,14 +71,27 @@ public class DireccionPostal {
 
 	}
 
+	/**
+	 * Metodo que comprueba si nuestra calle es valida.
+	 * @param calle
+	 * @return true, si es una calle valida.
+	 */
 	private boolean calleValida(String calle) {
 		return calle.matches("\\w+|\\/");
 	}
 
+	/**
+	 * Metodo get que obtiene el numero que forma la direccion postal.
+	 * @return numero
+	 */
 	public String getNumero() {
 		return numero;
 	}
 
+	/**
+	 * Metodo set que establece el numero de la direccion postal
+	 * @param numero
+	 */
 	public void setNumero(String numero) {
 		assert numero != null;
 		if (numeroValido(numero)) {
@@ -64,14 +102,27 @@ public class DireccionPostal {
 		}
 	}
 
+	/**
+	 * Metodo que comprueba si un numero es valido o no.
+	 * @param numero
+	 * @return true, si el numero es valido
+	 */
 	private boolean numeroValido(String numero) {
 		return numero.matches("\\d{1,3}");
 	}
 
+	/**
+	 * Metodo get que obtiene la cadena de caracteres CP que forma el codigo postal la direccion postal.
+	 * @return CP
+	 */
 	public String getCP() {
 		return CP;
 	}
 
+	/**
+	 * Metodo set que establece el codigo postal de la direccion postal.
+	 * @param CP
+	 */
 	public void setCP(String CP) {
 		assert CP != null;
 		if (cpValido(CP)) {
@@ -82,14 +133,27 @@ public class DireccionPostal {
 		}
 	}
 
+	/**
+	 * Metodo que comprueba si el CP es valido o no.
+	 * @param CP
+	 * @return true, si el CP es valido.
+	 */
 	private boolean cpValido(String CP) {
 		return CP.matches("\\d{5}");
 	}
 
+	/**
+	 * Metodo get que obtiene la cadena de caracteres poblacion que forma la direccion postal.
+	 * @return poblacion
+	 */ 
 	public String getPoblacion() {
 		return poblacion;
 	}
 
+	/**
+	 * Metodo set que establece la poblacion de la direccion postal.
+	 * @param poblacion
+	 */
 	public void setPoblacion(String poblacion) {
 		assert poblacion != null;
 		if (poblacionValido(poblacion)) {
@@ -101,10 +165,18 @@ public class DireccionPostal {
 
 	}
 
+	/**
+	 * Metodo que comprueba si una poblacion es valida o no.
+	 * @param poblacion
+	 * @return true, si la poblacion es valida
+	 */
 	private boolean poblacionValido(String poblacion) {
 		return !poblacion.matches("[ ]+");
 	}
 
+	/**
+	 * Redefinicion del metodo hashCode de la clase Object.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -116,6 +188,9 @@ public class DireccionPostal {
 		return result;
 	}
 
+	/**
+	 * Redefinicion del metodo equals de la clase Object.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -148,11 +223,17 @@ public class DireccionPostal {
 		return true;
 	}
 
+	/**
+	 * Redefinicion del metodo toString de la clase Object que da formato a los atributos de la clase DireccionPostal.
+	 */
 	@Override
 	public String toString() {
 		return calle + ", " + numero + ", " + CP + ", " + poblacion;
 	}
 
+	/**
+	 * Redefinicion del metodo clone de la clase Object que utiliza el constructor de copia.
+	 */
 	@Override
 	public DireccionPostal clone() {
 		return new DireccionPostal(this);

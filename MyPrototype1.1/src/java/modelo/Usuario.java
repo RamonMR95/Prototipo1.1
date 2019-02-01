@@ -63,8 +63,8 @@ public class Usuario {
 	}
 
 	/**
-	 * Constructor copia.
-	 * @param usr
+	 * Constructor copia de la clase.
+	 * @param usr , usuario a copiar
 	 */
 	public Usuario(Usuario usr) {
 		this.nif = new Nif(usr.nif);
@@ -79,51 +79,75 @@ public class Usuario {
 		this.rol = usr.rol;
 	}
 
+	/**
+	 * Metodo de get que obtiene el objeto nif de la clase Nif
+	 * @return nif
+	 */
 	public Nif getNif() {
 		return nif;
 	}
 
+	/**
+	 * Metodo set que establece un objeto Nif dado por parametro
+	 * @param nif
+	 */
 	public void setNif(Nif nif) {
 		assert nif != null;
 		this.nif = nif;
 	}
 
+	/**
+	 * Metodo get que obtiene el nombre del usuario en forma de cadena de texto
+	 * @return nombre
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * Metodo set que establece un nombre de usuario dado por parametro
+	 * @param nombre
+	 */
 	public void setNombre(String nombre) {
 		assert nombre != null;
 		if (nombreValido(nombre)) {
 			this.nombre = nombre;
 		}
-		// Todavía no se gestionan errores de usuario.
-		if (this.nombre == null) { // Tiempo de construcción.
-			this.nombre = new Usuario().nombre; // Defecto.
+
+		if (this.nombre == null) { 
+			this.nombre = new Usuario().nombre; 
 		}
 	}
 
 	/**
-	 * Comprueba validez del nombre.
+	 * Metodo que comprueba la validez de un nombre.
 	 * @param nombre.
 	 * @return true si cumple.
 	 */
 	private boolean nombreValido(String nombre) {
-		return !nombre.matches("[ ]+"); // Que no sea en blanco.
+		return nombre.matches("^([A-ZÁÉÍÓÚ][a-záéíóú]+)");
 	}
 
+	/**
+	 * Metodo get que obtiene los apellidos en forma de cadena de texto
+	 * @return apellidos
+	 */
 	public String getApellidos() {
 		return apellidos;
 	}
 
+	/**
+	 * Metodo set que establece los apellidos de un usuario dado por parametro
+	 * @param apellidos
+	 */
 	public void setApellidos(String apellidos) {
 		assert apellidos != null;
 		if (apellidosValidos(apellidos)) {
 			this.apellidos = apellidos;
 		}
-		// Todavía no se gestionan errores de usuario.
-		if (this.apellidos == null) { // Tiempo de construcción.
-			this.apellidos = new Usuario().apellidos; // Defecto.
+
+		if (this.apellidos == null) {
+			this.apellidos = new Usuario().apellidos;
 		}
 	}
 
@@ -133,7 +157,7 @@ public class Usuario {
 	 * @return true si cumple.
 	 */
 	private boolean apellidosValidos(String apellidos) {
-		return !apellidos.matches("[ ]+"); // Que no sea en blanco.
+		return apellidos.matches("(^[A-Z][a-záéíóú]+)(\\s)([A-Z][a-záéíóú]+)");
 	}
 	
 	/**
@@ -167,48 +191,85 @@ public class Usuario {
 		return id.toString();
 	}
 
+	/**
+	 * Metodo get que obtiene el objeto direccionpostal
+	 * @return direccionPostal
+	 */
 	public DireccionPostal getDireccionPostal() {
 		return direccionPostal;
 	}
 
+	/**
+	 * Metodo set que establece la direccion postal de un usuario dada por parametro
+	 * @param direccionPostal
+	 */
 	public void setDireccionPostal(DireccionPostal direccionPostal) {
 		assert direccionPostal != null;
 		this.direccionPostal = direccionPostal;
 
 	}
 
+	/**
+	 * Metodo get que obtiene el Objeto correo
+	 * @return correo
+	 */
 	public Correo getCorreo() {
 		return correo;
 	}
 
+	/**
+	 * Metodo set que establece el correo de un usuario que se pasado por parametro
+	 * @param correo
+	 */
 	public void setCorreo(Correo correo) {
 		assert correo != null;
 		this.correo = correo;
 	}
 
+	/**
+	 * Metodo set que obtiene el objeto fechadenacimiento de un usuario
+	 * @return fechaNacimiento
+	 */
 	public Fecha getFechaNacimiento() {
 		return fechaNacimiento;
 
 	}
 
+	/**
+	 * Metodo set que establece la fecha de nacimiento de un usuario dada por parametro.
+	 * @param fechaNacimiento
+	 */
 	public void setFechaNacimiento(Fecha fechaNacimiento) {
 		assert fechaNacimiento != null;
 		if (fechaNacimientoValida(fechaNacimiento)) {
 			this.fechaNacimiento = fechaNacimiento;
 		}
 		if (this.fechaNacimiento == null) {
-			this.fechaNacimiento = new Usuario().fechaNacimiento; // Tiempo de construccion
+			this.fechaNacimiento = new Usuario().fechaNacimiento;
 		}
 	}
 
+	/**
+	 * Metodo que comprueba si una fecha de nacimiento es valida
+	 * @param fechaNacimiento
+	 * @return true si es valida
+	 */
 	private boolean fechaNacimientoValida(Fecha fechaNacimiento) {
 		return !fechaNacimiento.after(new Fecha());
 	}
 
+	/**
+	 * Metodo get que obtiene el objeto fecha de alta
+	 * @return fechaAlta
+	 */
 	public Fecha getFechaAlta() {
 		return fechaAlta;
 	}
 
+	/**
+	 * Metodo set que establece un objeto fecha de alta dado por parametro
+	 * @param fechaAlta
+	 */
 	public void setFechaAlta(Fecha fechaAlta) {
 		assert fechaAlta != null;
 		if (fechaAltaValida(fechaAlta)) {
@@ -219,32 +280,52 @@ public class Usuario {
 		}
 	}
 
+	/**
+	 * Metodo que comprueba si una fecha de alta es valida o no
+	 * @param fechaAlta
+	 * @return true, si la fecha de alta es valida
+	 */
 	private boolean fechaAltaValida(Fecha fechaAlta) {
 		return !fechaAlta.after(new Fecha());
 	}
 
+	/**
+	 * Metodo get que obtiene el objeto clave de acceso que se le asigna al usuario
+	 * @return claveAcceso
+	 */
 	public ClaveAcceso getClaveAcceso() {
 		return claveAcceso;
 	}
 
+	/**
+	 * Metodo set que establece la clave de acceso pasada por parametro
+	 * @param claveAcceso
+	 */
 	public void setClaveAcceso(ClaveAcceso claveAcceso) {
 		assert claveAcceso != null;
 		this.claveAcceso = claveAcceso;
 	}
 
+	/**
+	 * Metodo get que obtiene el rol del usuario
+	 * @return rol del usuario dentro de nuestra aplicacion
+	 */
 	public RolUsuario getRol() {
 		return rol;
 	}
 
+	/**
+	 * Metodo set que establece el rol de nuestro usuario pasado por parametro
+	 * @param rol
+	 */
 	public void setRol(RolUsuario rol) {
 		assert rol != null;
 			this.rol = rol;
 	}
 
 	/**
-	 * Redefine el método heredado de la clase Objecto.
-	 * @return el texto formateado del estado -valores de atributos- de objeto de la
-	 *         clase Usuario.
+	 * Redefinicion del metodo toString.
+	 * @return String con los valores de los atributos de la clase
 	 */
 	@Override
 	public String toString() {
