@@ -16,13 +16,20 @@ import modelo.Simulacion;
 import modelo.Usuario;
 
 public class Presentacion {
-
+	/**
+	 * Atributos de la clase.
+	 */
 	private static Usuario usrEnSesion;
 	private static final int MAX_INTENTOS_FALLIDOS = 3;
 
+	/**
+	 * Metodo get que obtiene el usuario que se encuentra en sesion.
+	 * @return usrEnSesion
+	 */
 	public Usuario getUsrEnSesion() {
 		return usrEnSesion;
 	}
+
 	/**
 	 * Controla el acceso de usuario.
 	 * @return true si la sesión se inicia correctamente.
@@ -55,20 +62,19 @@ public class Presentacion {
 		teclado.close();
 		return false;
 	}
-	
+
 	/**
 	 * Despliega en la consola el estado almacenado, corresponde a una generación
 	 * del Juego de la vida.
 	 */
-	
-	
+
 	public void mostrarMundo() {
 		Simulacion simulacion = new Simulacion();
 		for (int i = 0; i < Simulacion.TAMAÑO_MUNDO; i++) {
 			for (int j = 0; j < Simulacion.TAMAÑO_MUNDO; j++) {
-				System.out.print(( simulacion.getMundo()[i][j] == 1) ? "|o" : "| ");
+				System.out.print((simulacion.getMundo()[i][j] == 1) ? "|o" : "| ");
 			}
 			System.out.println("|");
 		}
 	}
-}
+}	// Class

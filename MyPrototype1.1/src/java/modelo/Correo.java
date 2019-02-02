@@ -20,14 +20,15 @@ public class Correo {
 	public Correo(String texto) {
 		setCorreo(texto);
 	}
-	
+
 	/**
-	 * Constructor por defecto de la clase que le da un valor por defecto a nuestro correo
+	 * Constructor por defecto de la clase que le da un valor por defecto a nuestro
+	 * correo
 	 */
 	public Correo() {
 		this.texto = "correo@correo.es";
 	}
-	
+
 	/**
 	 * Constructor de copia de la clase
 	 * @param correo
@@ -35,7 +36,7 @@ public class Correo {
 	public Correo(Correo correo) {
 		this.texto = new String(correo.texto);
 	}
-	
+
 	/**
 	 * Metodo get que obtiene el texto que forma el correo del usuario
 	 * @return texto
@@ -43,7 +44,7 @@ public class Correo {
 	public String getCorreoTexto() {
 		return texto;
 	}
-	
+
 	/**
 	 * Metodo set que establece el texto que forma el correo del usuario
 	 * @param texto
@@ -53,13 +54,13 @@ public class Correo {
 		if (correoValido(texto)) {
 			this.texto = texto;
 		}
-		
+
 		if (this.texto == null) {
 			this.texto = new Correo().texto;
-													
+
 		}
 	}
-	
+
 	/**
 	 * Metodo que comprueba si un correo es valido o no
 	 * @param texto
@@ -100,7 +101,7 @@ public class Correo {
 			return false;
 		return true;
 	}
-	
+
 	/**
 	 * Redefinicion del metodo clone de la clase Object usando el constructor copia
 	 */
@@ -108,9 +109,10 @@ public class Correo {
 	public Correo clone() {
 		return new Correo(this);
 	}
-	
+
 	/**
-	 * Redefinicion del metodo toString de la clase Object que muestra el texto de nuestro correo
+	 * Redefinicion del metodo toString de la clase Object que muestra el texto de
+	 * nuestro correo
 	 */
 	@Override
 	public String toString() {

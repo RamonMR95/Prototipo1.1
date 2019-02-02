@@ -19,6 +19,9 @@ import modelo.Usuario.RolUsuario;
 import util.Fecha;
 
 public class Datos {
+	/**
+	 * Atributos del almacen de datos del prototipo.
+	 */
 	public static final int MAX_USUARIOS = 10;
 	public static final int MAX_SESIONES = 10;
 	private static final int MAX_SIMULACIONES = 10;
@@ -27,25 +30,40 @@ public class Datos {
 	private static Simulacion[] datosSimulaciones = new Simulacion[MAX_SIMULACIONES];
 	private static int sesionesRegistradas = 0;
 
-	/* Metodos get de la clase Datos */
-	public static Usuario[] getDatosUsuarios() {
+	/**
+	 * Metodo get que obtiene el array de Usuarios.
+	 * @return datosUsuarios
+	 */
+	public Usuario[] getDatosUsuarios() {
 		return datosUsuarios;
 	}
 
-	public static SesionUsuario[] getDatosSesiones() {
+	/**
+	 * Metodo get que obtiene el array de sesiones.
+	 * @return
+	 */
+	public SesionUsuario[] getDatosSesiones() {
 		return datosSesiones;
 	}
 
+	/**
+	 * Metodo get que obtiene el contador de sesiones iniciadas en el programa.
+	 * @return sesionesRegistradas
+	 */
 	public static int getSesionesRegistradas() {
 		return sesionesRegistradas;
 	}
 
-	public static Simulacion[] getDatosSimulaciones() {
+	/**
+	 * Metodo get que obtiene el array de simulaciones.
+	 * @return datosSimulaciones
+	 */
+	public Simulacion[] getDatosSimulaciones() {
 		return datosSimulaciones;
 	}
 
 	/**
-	 * Muestra por consola todos los usuarios almacenados.
+	 * Metodo que muestra todos los Usuarios.
 	 */
 	public static void mostrarTodosUsuarios() {
 		for (Usuario u : datosUsuarios) {
@@ -59,7 +77,7 @@ public class Datos {
 	 * @return - el Usuario encontrado o null si no existe.
 	 */
 	public static Usuario buscarUsuario(Nif idUsr) {
-		for (Usuario usr : Datos.getDatosUsuarios()) {
+		for (Usuario usr : datosUsuarios) {
 			if (usr.getNif().equals(idUsr)) {
 				return usr;
 			}
@@ -79,13 +97,10 @@ public class Datos {
 		sesionesRegistradas++;
 	}
 
-	public static void visualizar() {
-		for (SesionUsuario sesionUsuario : datosSesiones) {
-			System.out.println(sesionUsuario);
-		}
-
-	}
-
+	/**
+	 * Metodo que realiza una carga los Usuarios de prueba que se van a almacenar en
+	 * nuestro programa.
+	 */
 	public static void cargarUsuariosPrueba() {
 		for (int i = 0; i < MAX_USUARIOS; i++) {
 			datosUsuarios[i] = new Usuario(new Nif("0000000" + i + "K"), "Pepe", "López Pérez",
@@ -95,6 +110,10 @@ public class Datos {
 		}
 	}
 
+	/**
+	 * Metodo que realiza un volcado con los datos de los usuarios.
+	 * @return String volcadoUsuarios
+	 */
 	public static String volcarDatosUsuariosTexto() {
 		StringBuilder sb = new StringBuilder();
 		String delimitadorUsrApertura = "<usr>";
@@ -107,11 +126,16 @@ public class Datos {
 			sb.append(delimitadorAtribUsrApertura).append(usr.getNif().getnif()).append(delimitadorAtribUsrCierre);
 			sb.append(delimitadorAtribUsrApertura).append(usr.getNombre()).append(delimitadorAtribUsrCierre);
 			sb.append(delimitadorAtribUsrApertura).append(usr.getApellidos()).append(delimitadorAtribUsrCierre);
-			sb.append(delimitadorAtribUsrApertura).append(usr.getDireccionPostal().toString()).append(delimitadorAtribUsrCierre);
-			sb.append(delimitadorAtribUsrApertura).append(usr.getCorreo().getCorreoTexto()).append(delimitadorAtribUsrCierre);
-			sb.append(delimitadorAtribUsrApertura).append(usr.getFechaNacimiento().toString()).append(delimitadorAtribUsrCierre);
-			sb.append(delimitadorAtribUsrApertura).append(usr.getFechaAlta().toString()).append(delimitadorAtribUsrCierre);
-			sb.append(delimitadorAtribUsrApertura).append(usr.getClaveAcceso().getTexto()).append(delimitadorAtribUsrCierre);
+			sb.append(delimitadorAtribUsrApertura).append(usr.getDireccionPostal().toString())
+					.append(delimitadorAtribUsrCierre);
+			sb.append(delimitadorAtribUsrApertura).append(usr.getCorreo().getCorreoTexto())
+					.append(delimitadorAtribUsrCierre);
+			sb.append(delimitadorAtribUsrApertura).append(usr.getFechaNacimiento().toString())
+					.append(delimitadorAtribUsrCierre);
+			sb.append(delimitadorAtribUsrApertura).append(usr.getFechaAlta().toString())
+					.append(delimitadorAtribUsrCierre);
+			sb.append(delimitadorAtribUsrApertura).append(usr.getClaveAcceso().getTexto())
+					.append(delimitadorAtribUsrCierre);
 			sb.append(delimitadorAtribUsrApertura).append(usr.getRol()).append(delimitadorAtribUsrCierre);
 			sb.append(delimitadorUsrCierre);
 
@@ -119,6 +143,10 @@ public class Datos {
 		return sb.toString();
 	}
 
+	/**
+	 * Metodo que realiza un volcado de los datos de las sesiones de texto.
+	 * @return String volcadoSesiones
+	 */
 	public static String volcarDatosSesionesTexto() {
 		StringBuilder sb = new StringBuilder();
 		String delimitadorSesionApertura = "<sesion>";
@@ -136,4 +164,4 @@ public class Datos {
 		return sb.toString();
 	}
 
-}
+}	// Class
