@@ -16,22 +16,31 @@ Proyecto: Juego de la vida.
 
 import accesoDato.Datos;
 import accesoUsr.Presentacion;
+import modelo.SesionUsuario;
 import modelo.Simulacion;
+import util.Fecha;
 
 public class JVPrincipal {
 
 	/**
 	 * Secuencia principal del programa.
 	 */
+	static Datos datos = new Datos();
+	static Presentacion presentacion = new Presentacion();
+	
 	public static void main(String[] args) {
-
-		Datos.cargarUsuariosPrueba();
-		Datos.mostrarTodosUsuarios();
+		
+		datos.cargarUsuariosPrueba();
+		datos.mostrarTodosUsuarios();
 
 		if (Presentacion.inicioSesionCorrecto()) {
-			Presentacion presentacion = new Presentacion();
-			Datos.registrarSesion();
-			System.out.println("Sesión: " + Datos.getSesionesRegistradas() + '\n' + "Iniciada por: " + presentacion.getUsrEnSesion().getNombre()
+
+			SesionUsuario sesion = new SesionUsuario();
+			sesion.setUsr(presentacion.getUsrEnSesion());
+			sesion.setFecha(new Fecha());
+			
+			datos.altaSesion(sesion);
+			System.out.println("Sesión: " + datos.getSesionesRegistradas() + '\n' + "Iniciada por: " + presentacion.getUsrEnSesion().getNombre()
 					+ " " + presentacion.getUsrEnSesion().getApellidos());
 			
 			new Simulacion().lanzarDemo();

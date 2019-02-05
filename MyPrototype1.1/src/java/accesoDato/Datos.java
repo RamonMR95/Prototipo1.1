@@ -7,7 +7,6 @@
  */
 package accesoDato;
 
-import accesoUsr.Presentacion;
 import modelo.ClaveAcceso;
 import modelo.Correo;
 import modelo.DireccionPostal;
@@ -28,7 +27,7 @@ public class Datos {
 	private static Usuario[] datosUsuarios = new Usuario[MAX_USUARIOS];
 	private static SesionUsuario[] datosSesiones = new SesionUsuario[MAX_SESIONES];
 	private static Simulacion[] datosSimulaciones = new Simulacion[MAX_SIMULACIONES];
-	private static int sesionesRegistradas = 0;
+	private int sesionesRegistradas = 0;
 
 	/**
 	 * Metodo get que obtiene el array de Usuarios.
@@ -40,7 +39,7 @@ public class Datos {
 
 	/**
 	 * Metodo get que obtiene el array de sesiones.
-	 * @return
+	 * @return datosSesiones
 	 */
 	public SesionUsuario[] getDatosSesiones() {
 		return datosSesiones;
@@ -50,7 +49,7 @@ public class Datos {
 	 * Metodo get que obtiene el contador de sesiones iniciadas en el programa.
 	 * @return sesionesRegistradas
 	 */
-	public static int getSesionesRegistradas() {
+	public int getSesionesRegistradas() {
 		return sesionesRegistradas;
 	}
 
@@ -65,7 +64,7 @@ public class Datos {
 	/**
 	 * Metodo que muestra todos los Usuarios.
 	 */
-	public static void mostrarTodosUsuarios() {
+	public void mostrarTodosUsuarios() {
 		for (Usuario u : datosUsuarios) {
 			System.out.println("\n" + u);
 		}
@@ -76,7 +75,7 @@ public class Datos {
 	 * @param idUsr - el nif del Usuario a buscar.
 	 * @return - el Usuario encontrado o null si no existe.
 	 */
-	public static Usuario buscarUsuario(Nif idUsr) {
+	public Usuario buscarUsuario(Nif idUsr) {
 		for (Usuario usr : datosUsuarios) {
 			if (usr.getNif().equals(idUsr)) {
 				return usr;
@@ -85,14 +84,23 @@ public class Datos {
 		return null;
 	}
 
+//	/**
+//	 * Registro de la sesión de usuario.
+//	 */
+//	public void RegistrarSesion() {
+//		SesionUsuario sesion = new SesionUsuario();
+//		sesion.setUsr(new Presentacion().getUsrEnSesion());
+//		sesion.setFecha(new Fecha());
+//
+//		datosSesiones[sesionesRegistradas] = sesion;
+//		sesionesRegistradas++;
+//	}
+	
 	/**
-	 * Registro de la sesión de usuario.
+	 * Metodo que registra la sesion en el almacen de sesiones del programa.
+	 * @param sesion
 	 */
-	public static void registrarSesion() {
-		SesionUsuario sesion = new SesionUsuario();
-		sesion.setUsr(new Presentacion().getUsrEnSesion());
-		sesion.setFecha(new Fecha());
-
+	public void altaSesion(SesionUsuario sesion) {
 		datosSesiones[sesionesRegistradas] = sesion;
 		sesionesRegistradas++;
 	}
@@ -101,7 +109,7 @@ public class Datos {
 	 * Metodo que realiza una carga los Usuarios de prueba que se van a almacenar en
 	 * nuestro programa.
 	 */
-	public static void cargarUsuariosPrueba() {
+	public void cargarUsuariosPrueba() {
 		for (int i = 0; i < MAX_USUARIOS; i++) {
 			datosUsuarios[i] = new Usuario(new Nif("0000000" + i + "K"), "Pepe", "López Pérez",
 					new DireccionPostal("C/ Luna", "2" + i, "3013" + i, "Murcia"),
@@ -126,16 +134,11 @@ public class Datos {
 			sb.append(delimitadorAtribUsrApertura).append(usr.getNif().getnif()).append(delimitadorAtribUsrCierre);
 			sb.append(delimitadorAtribUsrApertura).append(usr.getNombre()).append(delimitadorAtribUsrCierre);
 			sb.append(delimitadorAtribUsrApertura).append(usr.getApellidos()).append(delimitadorAtribUsrCierre);
-			sb.append(delimitadorAtribUsrApertura).append(usr.getDireccionPostal().toString())
-					.append(delimitadorAtribUsrCierre);
-			sb.append(delimitadorAtribUsrApertura).append(usr.getCorreo().getCorreoTexto())
-					.append(delimitadorAtribUsrCierre);
-			sb.append(delimitadorAtribUsrApertura).append(usr.getFechaNacimiento().toString())
-					.append(delimitadorAtribUsrCierre);
-			sb.append(delimitadorAtribUsrApertura).append(usr.getFechaAlta().toString())
-					.append(delimitadorAtribUsrCierre);
-			sb.append(delimitadorAtribUsrApertura).append(usr.getClaveAcceso().getTexto())
-					.append(delimitadorAtribUsrCierre);
+			sb.append(delimitadorAtribUsrApertura).append(usr.getDireccionPostal().toString()).append(delimitadorAtribUsrCierre);
+			sb.append(delimitadorAtribUsrApertura).append(usr.getCorreo().getCorreoTexto()).append(delimitadorAtribUsrCierre);
+			sb.append(delimitadorAtribUsrApertura).append(usr.getFechaNacimiento().toString()).append(delimitadorAtribUsrCierre);
+			sb.append(delimitadorAtribUsrApertura).append(usr.getFechaAlta().toString()).append(delimitadorAtribUsrCierre);
+			sb.append(delimitadorAtribUsrApertura).append(usr.getClaveAcceso().getTexto()).append(delimitadorAtribUsrCierre);
 			sb.append(delimitadorAtribUsrApertura).append(usr.getRol()).append(delimitadorAtribUsrCierre);
 			sb.append(delimitadorUsrCierre);
 

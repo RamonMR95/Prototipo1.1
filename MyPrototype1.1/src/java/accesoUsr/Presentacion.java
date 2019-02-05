@@ -21,6 +21,7 @@ public class Presentacion {
 	 */
 	private static Usuario usrEnSesion;
 	private static final int MAX_INTENTOS_FALLIDOS = 3;
+	private static Datos datos = new Datos();
 
 	/**
 	 * Metodo get que obtiene el usuario que se encuentra en sesion.
@@ -44,7 +45,7 @@ public class Presentacion {
 			System.out.print("Introduce clave acceso: ");
 			ClaveAcceso clave = new ClaveAcceso(teclado.nextLine());
 
-			usrEnSesion = Datos.buscarUsuario(nif);
+			usrEnSesion = datos.buscarUsuario(nif);
 
 			Usuario aux = new Usuario();
 			aux.setClaveAcceso(new ClaveAcceso(clave));
