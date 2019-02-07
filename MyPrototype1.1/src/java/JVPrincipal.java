@@ -26,22 +26,22 @@ public class JVPrincipal {
 	 * Secuencia principal del programa.
 	 */
 	static Datos datos = new Datos();
-	static Presentacion presentacion = new Presentacion();
+	static Presentacion interfazUsr = new Presentacion();
 	
 	public static void main(String[] args) {
 		
 		datos.cargarUsuariosPrueba();
 		datos.mostrarTodosUsuarios();
 
-		if (Presentacion.inicioSesionCorrecto()) {
+		if (interfazUsr.inicioSesionCorrecto()) {
 
 			SesionUsuario sesion = new SesionUsuario();
-			sesion.setUsr(presentacion.getUsrEnSesion());
+			sesion.setUsr(interfazUsr .getUsrEnSesion());
 			sesion.setFecha(new Fecha());
 			
 			datos.altaSesion(sesion);
-			System.out.println("Sesión: " + datos.getSesionesRegistradas() + '\n' + "Iniciada por: " + presentacion.getUsrEnSesion().getNombre()
-					+ " " + presentacion.getUsrEnSesion().getApellidos());
+			System.out.println("Sesión: " + datos.getSesionesRegistradas() + '\n' + "Iniciada por: " + interfazUsr.getUsrEnSesion().getNombre()
+					+ " " + interfazUsr.getUsrEnSesion().getApellidos());
 			
 			new Simulacion().lanzarDemo();
 		} else {
@@ -49,5 +49,6 @@ public class JVPrincipal {
 		}
 		System.out.println("Fin del programa.");
 	}
+
 
 } // class

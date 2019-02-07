@@ -35,7 +35,7 @@ public class Presentacion {
 	 * Controla el acceso de usuario.
 	 * @return true si la sesión se inicia correctamente.
 	 */
-	public static boolean inicioSesionCorrecto() {
+	public boolean inicioSesionCorrecto() {
 		Scanner teclado = new Scanner(System.in); // Entrada por consola.
 		int intentosPermitidos = MAX_INTENTOS_FALLIDOS;
 
@@ -69,10 +69,10 @@ public class Presentacion {
 	 * del Juego de la vida.
 	 */
 
-	public void mostrarMundo() {
-		Simulacion simulacion = new Simulacion();
-		for (int i = 0; i < Simulacion.TAMAÑO_MUNDO; i++) {
-			for (int j = 0; j < Simulacion.TAMAÑO_MUNDO; j++) {
+	public void mostrarMundo(Simulacion simulacion) {
+
+		for (int i = 0; i < Simulacion.getTamañoMundo(); i++) {
+			for (int j = 0; j < Simulacion.getTamañoMundo(); j++) {
 				System.out.print((simulacion.getMundo()[i][j] == 1) ? "|o" : "| ");
 			}
 			System.out.println("|");

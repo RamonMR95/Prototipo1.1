@@ -27,7 +27,7 @@ public class Datos {
 	private static Usuario[] datosUsuarios = new Usuario[MAX_USUARIOS];
 	private static SesionUsuario[] datosSesiones = new SesionUsuario[MAX_SESIONES];
 	private static Simulacion[] datosSimulaciones = new Simulacion[MAX_SIMULACIONES];
-	private int sesionesRegistradas = 0;
+	private static int sesionesRegistradas = 0;
 
 	/**
 	 * Metodo get que obtiene el array de Usuarios.
@@ -84,18 +84,6 @@ public class Datos {
 		return null;
 	}
 
-//	/**
-//	 * Registro de la sesión de usuario.
-//	 */
-//	public void RegistrarSesion() {
-//		SesionUsuario sesion = new SesionUsuario();
-//		sesion.setUsr(new Presentacion().getUsrEnSesion());
-//		sesion.setFecha(new Fecha());
-//
-//		datosSesiones[sesionesRegistradas] = sesion;
-//		sesionesRegistradas++;
-//	}
-	
 	/**
 	 * Metodo que registra la sesion en el almacen de sesiones del programa.
 	 * @param sesion

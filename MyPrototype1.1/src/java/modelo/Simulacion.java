@@ -21,17 +21,15 @@ public class Simulacion {
 	private Usuario usr;
 	private Fecha fecha;
 
-	public static final int TAMAÑO_MUNDO = 18;
-	public static final int CICLOS_SIMULACION = 20;
-	private static byte[][] mundo = new byte[TAMAÑO_MUNDO][TAMAÑO_MUNDO];
+	private static final int TAMAÑO_MUNDO = 18;
+	private static final int CICLOS_SIMULACION = 20;
+	private byte[][] mundo;
 
 	// Reglas simulación
 	private int[] valoresSobrevivir;
 	private int[] valoresRenacer;
 
-	enum FormaEspacio {
-		PLANO, ESFERICO
-	}
+	enum FormaEspacio { PLANO, ESFERICO }
 
 	private static final FormaEspacio TIPO_MUNDO = FormaEspacio.PLANO;
 
@@ -61,9 +59,7 @@ public class Simulacion {
 	 * de los atributos. Llama al constructor convencional de la propia clase.
 	 */
 	public Simulacion() {
-		setUsr(new Usuario());
-		setFecha(new Fecha());
-		leyesEstandar();
+		this(new Usuario(), new Fecha(), new byte[TAMAÑO_MUNDO][TAMAÑO_MUNDO]);
 	}
 
 	/**
@@ -103,6 +99,15 @@ public class Simulacion {
 		this.fecha = fecha;
 	}
 
+	
+	public static int getTamañoMundo() {
+		return TAMAÑO_MUNDO;
+	}
+
+	public static int getCiclosSimulacion() {
+		return CICLOS_SIMULACION;
+	}
+
 	public String getIdSimulacion() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.getUsr().getIdUsr());
@@ -114,16 +119,17 @@ public class Simulacion {
 	public String toString() {
 		return String.format("Simulacion [usr=%s, fecha=%s, mundo=%s]", usr, fecha, mundo);
 	}
-
+	
 	/**
 	 * Ejecuta una simulación del juego de la vida en la consola.
 	 */
 	public void lanzarDemo() {
+		Presentacion interfazUsr = new Presentacion(); // No deberia utilizarse
 		cargarMundoDemo();
 		int generacion = 0;
 		do {
 			System.out.println("\nGeneración: " + generacion);
-			new Presentacion().mostrarMundo();
+			interfazUsr.mostrarMundo(this);
 			actualizarMundo();
 			generacion++;
 		} while (generacion < CICLOS_SIMULACION);
@@ -132,7 +138,7 @@ public class Simulacion {
 	/**
 	 * Carga datos demo en la matriz que representa el mundo.
 	 */
-	private void cargarMundoDemo() {
+	public void cargarMundoDemo() {
 		mundo = new byte[][] { 
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -159,7 +165,7 @@ public class Simulacion {
 	 * Actualiza el estado del Juego de la Vida. Actualiza según la configuración
 	 * establecida para la forma del espacio.
 	 */
-	private void actualizarMundo() {
+	public void actualizarMundo() {
 		if (TIPO_MUNDO == FormaEspacio.PLANO) {
 			actualizarMundoPlano();
 		}
@@ -237,7 +243,7 @@ public class Simulacion {
 	 */
 	private byte visitarCeldaOeste(int fila, int col) {
 		if (col - 1 >= 0) {
-			return mundo[fila][col - 1]; // Celda O.
+			return mundo[fila][col - 1];
 		}
 		return 0;
 	}
@@ -251,7 +257,7 @@ public class Simulacion {
 	 */
 	private byte visitarCeldaSuroeste(int fila, int col) {
 		if (fila + 1 < TAMAÑO_MUNDO && col - 1 >= 0) {
-			return mundo[fila + 1][col - 1]; // Celda SO.
+			return mundo[fila + 1][col - 1];
 		}
 		return 0;
 	}
@@ -265,7 +271,7 @@ public class Simulacion {
 	 */
 	private byte visitarCeldaSur(int fila, int col) {
 		if (fila + 1 < TAMAÑO_MUNDO) {
-			return mundo[fila + 1][col]; // Celda S.
+			return mundo[fila + 1][col];
 		}
 		return 0;
 	}
@@ -279,7 +285,7 @@ public class Simulacion {
 	 */
 	private byte visitarCeldaSureste(int fila, int col) {
 		if (fila + 1 < TAMAÑO_MUNDO && col + 1 < TAMAÑO_MUNDO) {
-			return mundo[fila + 1][col + 1]; // Celda SE.
+			return mundo[fila + 1][col + 1];
 		}
 		return 0;
 	}
@@ -293,7 +299,7 @@ public class Simulacion {
 	 */
 	private byte visitarCeldaEste(int fila, int col) {
 		if (col + 1 < TAMAÑO_MUNDO) {
-			return mundo[fila][col + 1]; // Celda E.
+			return mundo[fila][col + 1];
 		}
 		return 0;
 	}
@@ -307,7 +313,7 @@ public class Simulacion {
 	 */
 	private byte visitarCeldaNoreste(int fila, int col) {
 		if (fila - 1 >= 0 && col + 1 < TAMAÑO_MUNDO) {
-			return mundo[fila - 1][col + 1]; // Celda NE.
+			return mundo[fila - 1][col + 1];
 		}
 		return 0;
 	}
@@ -321,7 +327,7 @@ public class Simulacion {
 	 */
 	private byte visitarCeldaNorte(int fila, int col) {
 		if (fila - 1 >= 0) {
-			return mundo[fila - 1][col]; // Celda N.
+			return mundo[fila - 1][col];
 		}
 		return 0;
 	}
@@ -335,7 +341,7 @@ public class Simulacion {
 	 */
 	private byte visitarCeldaNoroeste(int fila, int col) {
 		if (fila - 1 >= 0 && col - 1 >= 0) {
-			return mundo[fila - 1][col - 1]; // Celda NO.
+			return mundo[fila - 1][col - 1];
 		}
 		return 0;
 	}
