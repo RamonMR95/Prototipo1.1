@@ -5,15 +5,11 @@
  *  @version: 1.1 - 2019/01/22 
  *  @author: Ramon Moñino
  */
+
 package accesoDato;
 
-import modelo.ClaveAcceso;
-import modelo.Correo;
-import modelo.DireccionPostal;
-import modelo.Nif;
-import modelo.SesionUsuario;
-import modelo.Simulacion;
-import modelo.Usuario;
+import java.util.ArrayList;
+import modelo.*;
 import modelo.Usuario.RolUsuario;
 import util.Fecha;
 
@@ -21,44 +17,32 @@ public class Datos {
 	/**
 	 * Atributos del almacen de datos del prototipo.
 	 */
-	public static final int MAX_USUARIOS = 10;
-	public static final int MAX_SESIONES = 10;
-	private static final int MAX_SIMULACIONES = 10;
-	private static Usuario[] datosUsuarios = new Usuario[MAX_USUARIOS];
-	private static SesionUsuario[] datosSesiones = new SesionUsuario[MAX_SESIONES];
-	private static Simulacion[] datosSimulaciones = new Simulacion[MAX_SIMULACIONES];
-	private static int sesionesRegistradas = 0;
+	private static ArrayList<Usuario> datosUsuarios = new ArrayList<Usuario>();
+	private static ArrayList<SesionUsuario> datosSesiones = new ArrayList<SesionUsuario>();
+	private static ArrayList<Simulacion> datosSimulaciones = new ArrayList<Simulacion>();
 
 	/**
-	 * Metodo get que obtiene el array de Usuarios.
-	 * @return datosUsuarios
+	 * Metodo get que obtiene el número de usuarios registrados.
+	 * @return Numero de Usuarios
 	 */
-	public Usuario[] getDatosUsuarios() {
-		return datosUsuarios;
+	public int getUsuariosRegistrados() {
+		return datosUsuarios.size();
 	}
 
 	/**
-	 * Metodo get que obtiene el array de sesiones.
-	 * @return datosSesiones
-	 */
-	public SesionUsuario[] getDatosSesiones() {
-		return datosSesiones;
-	}
-
-	/**
-	 * Metodo get que obtiene el contador de sesiones iniciadas en el programa.
-	 * @return sesionesRegistradas
+	 * Metodo get que obtiene el numero de sesiones registradas.
+	 * @return Numero de sesionesRegistradas
 	 */
 	public int getSesionesRegistradas() {
-		return sesionesRegistradas;
+		return datosSesiones.size();
 	}
 
 	/**
-	 * Metodo get que obtiene el array de simulaciones.
-	 * @return datosSimulaciones
+	 * Metodo get que obtiene el numero de simulaciones registradas.
+	 * @return Numero de simulaciones
 	 */
-	public Simulacion[] getDatosSimulaciones() {
-		return datosSimulaciones;
+	public int getSimulacionesRegistradas() {
+		return datosSimulaciones.size();
 	}
 
 	/**
@@ -89,8 +73,26 @@ public class Datos {
 	 * @param sesion
 	 */
 	public void altaSesion(SesionUsuario sesion) {
-		datosSesiones[sesionesRegistradas] = sesion;
-		sesionesRegistradas++;
+		datosSesiones.add(sesion);
+		
+	}
+	
+	/**
+	 * Metodo que registra el usuario en el almacen de usuarios
+	 * @param usr
+	 */
+	public void altaUsuario(Usuario usr) {
+		if(buscarUsuario(usr.getNif()) == null) {
+			datosUsuarios.add(usr);
+		}
+	}
+	
+	/**
+	 * Metodo que registra la simulacion en el almacen de simulaciones
+	 * @param simulacion
+	 */
+	public void altaSimulacion(Simulacion simulacion) {
+		datosSimulaciones.add(simulacion);
 	}
 
 	/**
@@ -98,11 +100,11 @@ public class Datos {
 	 * nuestro programa.
 	 */
 	public void cargarUsuariosPrueba() {
-		for (int i = 0; i < MAX_USUARIOS; i++) {
-			datosUsuarios[i] = new Usuario(new Nif("0000000" + i + "K"), "Pepe", "López Pérez",
+		for (int i = 0; i < 10; i++) {
+			altaUsuario(new Usuario(new Nif("0000000" + i + "K"), "Pepe", "López Pérez",
 					new DireccionPostal("C/ Luna", "2" + i, "3013" + i, "Murcia"),
 					new Correo("pepe" + i + "@gmail.com"), new Fecha(1999, 11, 12), new Fecha(2018, 01, 03),
-					new ClaveAcceso("Miau#" + i), RolUsuario.NORMAL);
+					new ClaveAcceso("Miau#" + i), RolUsuario.NORMAL));
 		}
 	}
 
